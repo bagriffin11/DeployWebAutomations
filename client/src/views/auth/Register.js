@@ -1,6 +1,21 @@
 import React from "react";
+import axios from "axios";
+import {useState} from 'react';
 
 export default function Register() {
+
+
+  const [fullname, fullName] = useState("");
+  const [email, Email] = useState("");
+  const [password, Password] = useState("");
+
+    const onSubmit = (data) => {
+        axios.post("http://localhost:3001/user", {
+            fullname: fullname, email: email, password: password
+        }).then((response) => {
+         console.log("it worked");
+    });
+  };
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -54,7 +69,9 @@ export default function Register() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Name"
+                      placeholder="Name" onChange = {(e)=>  {
+                        fullName(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -68,7 +85,9 @@ export default function Register() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                      placeholder="Email" onChange = {(e)=>  {
+                        Email(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -82,7 +101,9 @@ export default function Register() {
                     <input
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Password"
+                      placeholder="Password" onChange = {(e)=>  {
+                        Password(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -109,7 +130,7 @@ export default function Register() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="button" onClick = {onSubmit}
                     >
                       Create Account
                     </button>
