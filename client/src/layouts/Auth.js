@@ -10,6 +10,7 @@ import FooterSmall from "components/Footers/FooterSmall.js";
 
 import Login from "views/auth/Login.js";
 import Register from "views/auth/Register.js";
+import Iglogin from "views/auth/Iglogin.js";
 
 export default function Auth() {
   return (
@@ -25,6 +26,7 @@ export default function Auth() {
             }}
           ></div>
           <Switch>
+            <Route path="/auth/iglogin" exact component={Iglogin} />
             <Route path="/auth/login" exact component={Login} />
             <Route path="/auth/register" exact component={Register} />
             <Redirect from="/auth" to="/auth/login" />
