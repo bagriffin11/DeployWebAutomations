@@ -2,7 +2,8 @@
 import {React, useState} from 'react'
 import axios from "axios";
 
-export default function Fblogin() {
+
+export default function Emaillogin() {
  
 const [username, a] = useState("");
 const [password, b] = useState("");
@@ -18,9 +19,9 @@ const onSubmit = (data) => {
     return (
         <div>
          <form>
-         <br>
+           <br>
            </br>
-           <h1>Facebook Login:</h1>
+           <h1>Gmail Login:</h1>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"

@@ -1,7 +1,11 @@
-import React from "react";
+import {React, useState}  from "react";
 import PropTypes from "prop-types";
+import Popupig from "components/Popup/Popupig.js";
+//import Accountselect from "views/auth/Accountselect.js"
+import Account from "layouts/Account.js";
 
-export default function CardAccounts({
+export default function CardAccounts(
+  {
   statSubtitle,
   statTitle,
   statArrow,
@@ -10,10 +14,25 @@ export default function CardAccounts({
   statDescripiron,
   statIconName,
   statIconColor,
+  
 }) {
+  const [buttonPopup, setButtonPopup] = useState(false);
+ /* const [timedPopup, setTimedPopup] = useState(false);
+
+ 
+
+  useEffect(() =>{
+ setTimeout(() => {
+    setTimedPopup(true);
+  }, 3000);
+  },[]); */
+
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+    <div>
+
+    
+      <div hoverable onClick={() => setButtonPopup(true)} className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -52,7 +71,16 @@ export default function CardAccounts({
           </p>
         </div>
       </div>
+      <Popupig trigger = {buttonPopup} setTrigger={setButtonPopup}>
+        <h3>Choose Account:</h3>
+          <Account />
+      </Popupig>
+
+
+      </div>
     </>
+     
+
   );
 }
 
