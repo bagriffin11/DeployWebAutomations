@@ -1,7 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import {React, useState, useEffect} from 'react'
+import axios from "axios";
+import {useHistory} from "react-router-dom";
+import {useParams} from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
 export default function Login() {
+
+  let history = useHistory();
+
+  const [email, Email] = useState("");
+  const [password, Password] = useState("");
+  
+  const onSubmit = (data) => {
+      axios.post("http://localhost:3001/login", {
+        
+          email:email, password: password
+      }).then((response) => {
+        history.push("/");
+      });
+};
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -55,7 +73,9 @@ export default function Login() {
                     <input
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Email"
+                      placeholder="Email" onChange = {(e)=>  {
+                        Email(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -70,6 +90,9 @@ export default function Login() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      onChange = {(e)=>  {
+                        Password(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
@@ -88,7 +111,7 @@ export default function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="button" onClick = {onSubmit}
                     >
                       Sign In
                     </button>

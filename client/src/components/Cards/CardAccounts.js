@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Popupig from "components/Popup/Popupig.js";
 //import Accountselect from "views/auth/Accountselect.js"
 import Account from "layouts/Account.js";
+import 'assets/styles/hover.css'
+
 
 export default function CardAccounts(
   {
@@ -27,12 +29,14 @@ export default function CardAccounts(
   }, 3000);
   },[]); */
 
+  
+
   return (
     <>
     <div>
 
     
-      <div hoverable onClick={() => setButtonPopup(true)} className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+      <div hoverable onClick={() => setButtonPopup(true)} className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg e">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">

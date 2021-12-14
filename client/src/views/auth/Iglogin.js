@@ -1,25 +1,42 @@
 
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import axios from "axios";
+import {useHistory} from "react-router-dom";
+import {useParams} from "react-router-dom";
+
 
 export default function Iglogin() {
- /*
+let {id} = useParams(); 
+let history = useHistory();
+
 const [username, a] = useState("");
 const [password, b] = useState("");
+const [userObject, setUserObject] = useState({});
 
-const onSubmit = (data) => {
-    axios.post("http://localhost:3001/igactionn", {
-        username: username, password: password
+useEffect(() => {
+  axios.get(`http://localhost:3001/user/byId/${id}`).then((response) => {
+    setUserObject(response.data);
+  });
+
+  axios.get(`http://localhost:3001/igaccount/${id}`).then((response) => {
+
+  });
+}, []);
+
+const onSubmit = () => {
+    axios.post("http://localhost:3001/igaccount", {
+        username: username, password: password, UserId: id
     }).then((response) => {
-     console.log("it worked");
+     history.push("/choose/Submitpage");
 });
 };
-*/
+
+
     return (
         <div>
          <form>
          <br>
-           </br>
+          </br>
            <h1>Instagram Login:</h1>
                   <div className="relative w-full mb-3">
                     <label
@@ -32,6 +49,9 @@ const onSubmit = (data) => {
                       type="Name"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
+                      onChange = {(e)=>  {
+                        a(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -46,6 +66,9 @@ const onSubmit = (data) => {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      onChange = {(e)=>  {
+                        b(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
@@ -65,6 +88,7 @@ const onSubmit = (data) => {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick = {onSubmit}
                     >
                       Sign In
                     </button>

@@ -8,7 +8,7 @@ const [username, a] = useState("");
 const [password, b] = useState("");
 
 const onSubmit = (data) => {
-    axios.post("http://localhost:3001/igactionn", {
+    axios.post("http://localhost:3001/fbaccount", {
         username: username, password: password
     }).then((response) => {
      console.log("it worked");
@@ -32,6 +32,9 @@ const onSubmit = (data) => {
                       type="Name"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
+                      onChange = {(e)=>  {
+                        a(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -46,6 +49,9 @@ const onSubmit = (data) => {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      onChange = {(e)=>  {
+                        b(e.target.value);
+                      }}
                     />
                   </div>
                   <div>
@@ -65,6 +71,7 @@ const onSubmit = (data) => {
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button"
+                      onClick = {onSubmit}
                     >
                       Sign In
                     </button>

@@ -1,6 +1,7 @@
-const Igaccount = require("./Igaccount");
+    const bcrypt = require('bcrypt')
 
 module.exports = (sequelize, DataTypes) => {
+
     const User = sequelize.define("User",{
         fullname: {
             type: DataTypes.STRING,
@@ -14,12 +15,21 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         }
-
-       
     });
 
+    User.beforeCreate((user, options) => {
+        return bcrypt.hash(user.password, 10)
+            .then(hash => {
+                user.password = hash;
+            })
+            .catch(err => { 
+                throw new Error(); 
+            });
+    });
+    //crypted password
+
     User.associate = (models) => {
-        User.hasOne(models.Igaccount, {
+        User.hasMany(models.Igaccount, {
            onDelete: "cascade",
         });
             //this makes igaccount linked to posts

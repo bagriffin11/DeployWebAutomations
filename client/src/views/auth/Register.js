@@ -1,20 +1,25 @@
 import React from "react";
 import axios from "axios";
 import {useState} from 'react';
+import {useHistory} from "react-router-dom";
 
 export default function Register() {
 
+  let history = useHistory();
 
   const [fullname, fullName] = useState("");
   const [email, Email] = useState("");
   const [password, Password] = useState("");
 
+    
+
     const onSubmit = (data) => {
         axios.post("http://localhost:3001/user", {
+          
             fullname: fullname, email: email, password: password
         }).then((response) => {
-         console.log("it worked");
-    });
+          history.push("/");
+        });
   };
   return (
     <>

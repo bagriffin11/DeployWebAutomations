@@ -7,3 +7,7 @@ npm install nodemon // allows you to refresh server
 npm start // starts the project 
 npm install sequelize sequelize-cli // makes doing sql easy 
 npx sequelize-cli  //gives the commands choose init to initiate sequelie 
+
+npm install bcrypt //encript password
+npm install jsonwebtoken //creates a token for the user
+npm install cookie-parser // store token in cookie-parser

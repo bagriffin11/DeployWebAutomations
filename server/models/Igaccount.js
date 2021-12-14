@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        igpassword: {
+        password: {
             type: DataTypes.STRING,
             allowNull: false,
         }
