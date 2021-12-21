@@ -1,5 +1,6 @@
-import React from "react";
+import {React, useState, useEffect} from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
+import axios from "axios";
 
 // components
 
@@ -15,29 +16,57 @@ import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 import Accounts from "views/admin/Accounts.js"
+import {LoginContext, UserId} from "Global/Variables.js"
+
+
 
 export default function Admin() {
+const [loggedIn, setLoggedIn] = useState("");
+const [id, setId] = useState();
+
+
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/auth").then((response) => {
+       setLoggedIn(response.data);
+    })
+  },[])
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/user/getid").then((response) => {
+       setId(response.data);
+    })
+  },[])
+
   return (
-    <>
+    <>          
+  <LoginContext.Provider value={loggedIn}>
+  <UserId.Provider value={id}>
+
       <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
         {/* Header */}
         <HeaderStats />
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
-          <Switch>
-            <Route path="/admin/dashboard" exact component={Dashboard} />
-            <Route path="/admin/maps" exact component={Maps} />
-            <Route path="/admin/settings" exact component={Settings} />
-            <Route path="/admin/tables" exact component={Tables} />
-            <Route path="/admin/dashboard" exact component={Dashboard} />
-            <Route path="/admin/accounts" exact component={Accounts} />
+          <Switch>  
 
-            <Redirect from="/admin" to="/admin/dashboard" />
+            <Route path="/user/dashboard" exact component={() => <Dashboard authorized = {loggedIn} /> } />
+            <Route path="/user/maps" exact component={() => <Maps authorized = {loggedIn} /> } />
+            <Route path="/user/settings" exact component={() => <Settings authorized = {loggedIn} /> } />
+            <Route path="/user/tables" exact component={() => <Tables authorized = {loggedIn} /> } />
+            <Route path="/user/accounts/:id" exact component={() => <Accounts authorized = {loggedIn} /> } />
+
+            <Redirect from="/admin/dashboard" to="/" />
           </Switch>
           <FooterAdmin />
         </div>
       </div>
+
+  </UserId.Provider>
+  </LoginContext.Provider>
+
+    
     </>
   );
 }

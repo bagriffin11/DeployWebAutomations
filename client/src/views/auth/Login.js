@@ -1,25 +1,39 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useContext} from 'react';
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import { Link} from "react-router-dom";
+import {LoginContext, UserId} from "Global/Variables.js"
 
 
 export default function Login() {
-
   let history = useHistory();
+
+  const loggedIn = useContext(LoginContext);
+  const id = useContext(UserId);
 
   const [email, Email] = useState("");
   const [password, Password] = useState("");
   
+ 
+  axios.defaults.withCredentials = true;
+
   const onSubmit = (data) => {
-      axios.post("http://localhost:3001/login", {
+      axios.post("http://localhost:3001/user/login", {
         
           email:email, password: password
       }).then((response) => {
-        history.push("/");
+        if (response.data.error) {
+                  alert(response.data.error);
+        }
+        else {
+         //  sessionStorage.setItem("accessToken", response.data);
+        history.push("/user");
+        }
       });
 };
+
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -79,6 +93,7 @@ export default function Login() {
                     />
                   </div>
 
+
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -134,6 +149,8 @@ export default function Login() {
                   <small>Create new account</small>
                 </Link>
               </div>
+              {loggedIn ? <h1 className="text-blueGray-200">you're  logged in</h1> : <h1 className="text-blueGray-200">youre not logged in</h1>}
+              <h1 className="text-blueGray-200">your id = {id}</h1>
             </div>
           </div>
         </div>

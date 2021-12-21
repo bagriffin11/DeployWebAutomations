@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 module.exports = (sequelize, DataTypes) => {
 
     const Emailaccount = sequelize.define("Emailaccount",{
@@ -9,6 +10,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         }
+    });
+
+    Emailaccount.beforeCreate((emailaccount, options) => {
+        return bcrypt.hash(emailaccount.password, 10)
+            .then(hash => {
+                emailaccount.password = hash;
+            })
+            .catch(err => { 
+                throw new Error(); 
+            });
     });
     
   

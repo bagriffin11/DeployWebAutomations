@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt')
 module.exports = (sequelize, DataTypes) => {
 
     const Fbaccount = sequelize.define("Fbaccount",{
@@ -9,6 +10,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         }
+    });
+
+    Fbaccount.beforeCreate((fbaccount, options) => {
+        return bcrypt.hash(fbaccount.password, 10)
+            .then(hash => {
+                fbaccount.password = hash;
+            })
+            .catch(err => { 
+                throw new Error(); 
+            });
     });
     
   

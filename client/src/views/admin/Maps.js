@@ -1,10 +1,15 @@
 import React from "react";
+import {Redirect} from "react-router-dom";
 
 // components
 
 import MapExample from "components/Maps/MapExample.js";
 
-export default function Maps() {
+export default function Maps({authorized}) {
+  if (!authorized){
+    return <Redirect to="/" />
+  }
+
   return (
     <>
       <div className="flex flex-wrap">

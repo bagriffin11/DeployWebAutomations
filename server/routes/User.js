@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {User} = require("../models");
-
-
+const bcrypt = require("bcrypt");
+const {createTokens, validateToken} = require("../jwt/Jwt")
 
 //can write post and get requests 
 router.get("/", async (req, res) =>{
@@ -10,25 +10,55 @@ router.get("/", async (req, res) =>{
     const listOfUsers = await User.findAll()
     res.json(listOfUsers);
 });
-//instead of send you can put json and it returns a string
-//how to get table data by id
 router.get("/byId/:id", async (req,res) => {
     const id = req.params.id;
     const user = await User.findByPk(id);
     res.json(user);
-});
+}); 
+
+router.get("/getid",validateToken, async (req, res) => {
+    const id = req.user.id;
+    res.json(id);
+
+})
 
 router.post("/", async (req, res) => {
-    const user = req.body;
-    await User.create(user);
-    res.json(user);
-    // inserts body of variables into the table Posts
-    // make async timing protocol 
-    // res.json(post) sends data back if you insert it into insomnia
+  const {fullname, email, password} = req.body;
+  bcrypt.hash(password, 10).then((hash) => {
+      User.create({
+          fullname: fullname,
+          email: email,
+          password: hash,
+      });
+      res.json("success");
+  });
 });
 
+router.post("/login", async (req,res) => {
+    const {email, password} = req.body;
+    const user = await User.findOne({where: {email: email}});
+    if (!user) res.status(400).json({error: "user doesnt exist"});
 
+    const dbPassword = user.password;
+    bcrypt.compare(password, dbPassword).then((match) => {
+        if (!match) {
+            res.status(400).json({error: "Wrong username and password"});
+        }
+        else {
 
+            const accessToken = createTokens(user)
+
+            res.cookie("access-token", accessToken,{
+                maxAge: 60*60*24*30*1000,
+                httpOnly: true,
+            });
+                res.json(accessToken);
+
+        }
+    });
+});
+
+//put random string generator for secret and import it from a file
 
 router.delete("/delete", (req, res) =>{
     res.send("delete");

@@ -1,9 +1,14 @@
 import React from "react";
-
-// components
+import {Redirect} from "react-router-dom";
 import AccountStats from "components/Headers/AccountStats.js";
+import {useParams} from "react-router-dom";
 
-export default function Accounts() {
+export default function Accounts({authorized}) {
+
+  
+  if (!authorized){
+    return <Redirect to="/" />
+  }
   return (
     <>
     

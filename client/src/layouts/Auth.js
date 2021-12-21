@@ -1,6 +1,6 @@
-import React from "react";
+import {React, useState, useEffect} from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
-
+import axios from "axios";
 // components
 
 import Navbar from "components/Navbars/AuthNavbar.js";
@@ -11,11 +11,31 @@ import FooterSmall from "components/Footers/FooterSmall.js";
 import Login from "views/auth/Login.js";
 import Register from "views/auth/Register.js";
 import Iglogin from "views/auth/Iglogin.js";
+import {LoginContext, UserId} from "Global/Variables.js"
+
 
 export default function Auth() {
+
+  const [loggedIn, setLoggedIn] = useState("");
+  const [id, setId] = useState();
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/auth").then((response) => {
+       setLoggedIn(response.data);
+    })
+  },[])
+  useEffect(() => {
+    axios.get("http://localhost:3001/user/getid").then((response) => {
+       setId(response.data);
+    })
+  },[])
+
   return (
     <>
-      <Navbar transparent />
+      <LoginContext.Provider value={loggedIn}>
+      <UserId.Provider value={id}>
+
+   <Navbar transparent />
       <main>
         <section className="relative w-full h-full py-40 min-h-screen">
           <div
@@ -29,11 +49,15 @@ export default function Auth() {
             <Route path="/auth/iglogin" exact component={Iglogin} />
             <Route path="/auth/login" exact component={Login} />
             <Route path="/auth/register" exact component={Register} />
-            <Redirect from="/auth" to="/auth/login" />
           </Switch>
           <FooterSmall absolute />
         </section>
       </main>
+      </UserId.Provider >
+
+      </LoginContext.Provider>
+
+   
     </>
   );
 }

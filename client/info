@@ -1,0 +1,3 @@
+ngrok can be used by opening the ngrokk folder found in desktop.
+open in terminal
+run ./ngrok http 3000 so others can view your app.

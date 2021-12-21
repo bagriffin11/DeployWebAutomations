@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import {useState} from 'react';
 import {useHistory} from "react-router-dom";
+import { Link} from "react-router-dom";
+
 
 export default function Register() {
 
@@ -18,7 +20,7 @@ export default function Register() {
           
             fullname: fullname, email: email, password: password
         }).then((response) => {
-          history.push("/");
+          history.push("/user");
         });
   };
   return (
@@ -141,6 +143,15 @@ export default function Register() {
                     </button>
                   </div>
                 </form>
+              </div>
+              
+            </div>
+            <div className="flex flex-wrap mt-6 relative">
+       
+              <div className="w-1/2 text-left">
+                <Link to="/auth/login" className="text-blueGray-200">
+                  <small>Login</small>
+                </Link>
               </div>
             </div>
           </div>

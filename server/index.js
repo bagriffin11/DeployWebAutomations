@@ -1,20 +1,25 @@
 const express = require('express');
 const app = express();
 const cors = require("cors");
-const {User} = require("./models");
-const bcrypt = require('bcrypt')
-
+const cookieParser = require("cookie-parser");
+const {validateToken} = require("./jwt/Jwt")
 
 
 app.use(express.json()); //allows for json to be used in insomnia 
-app.use(cors());
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true
+}));
+app.use(cookieParser());
+
 
 const db = require("./models");
 
 
 const userRouter = require('./routes/User');
 app.use("/user", userRouter); //type in the browser localhost:3001/posts to view
-
+//make into /auth so it links to all the other pages 
 const igRouter = require('./routes/Igaccount');
 app.use("/igaccount", igRouter);
 
@@ -24,28 +29,20 @@ app.use("/fbaccount", fbRouter);
 const emailRouter = require('./routes/Emailaccount');
 app.use("/emailaccount", emailRouter);
 
-/*
-const igactionRouter = require('./routes/Igaction');
-const User = require('./models/User');
-app.use("/igaction", igactionRouter); */
-app.post("/login", async (req,res) => {
-    const {email, password} = req.body;
-    const user = await User.findOne({where: {email: email}});
-    if (!user) res.status(400).json({error: "user doesnt exist"});
+//must pass in validate token into each api call (leave async)
+app.get("/auth", validateToken, (req, res) => {
+  if (validateToken){
+      res.send(true);
+  }
+  else {
+      res.send(false);
+  }
+    
+})
 
-    const dbPassword = user.password;
-    bcrypt.compare(password, dbPassword).then((match) => {
-        if (!match) {
-            res.status(400).json({error: "Wrong username and password"});
-        }
-        else {
-                res.json("Logged in");
-        }
-    });
-});
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
     console.log('server running on port 3001')
-   }); 
+   });
 });

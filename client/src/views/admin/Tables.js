@@ -1,10 +1,14 @@
 import React from "react";
+import {Redirect} from "react-router-dom";
 
 // components
 
 import CardTable from "components/Cards/CardTable.js";
 
-export default function Tables() {
+export default function Tables({authorized}) {
+  if (!authorized){
+    return <Redirect to="/" />
+  }
   return (
     <>
       <div className="flex flex-wrap mt-4">

@@ -1,12 +1,26 @@
 /*eslint-disable*/
-import React from "react";
-import { Link } from "react-router-dom";
+import {React, useEffect, useState} from "react";
+import { Link, useHistory } from "react-router-dom";
+
 
 import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import axios from "axios";
+
+
 
 export default function Sidebar() {
-  const [collapseShow, setCollapseShow] = React.useState("hidden");
+const [id, setId] = useState();
+  useEffect(() => {
+    axios.get("http://localhost:3001/user/getid").then((response) => {
+       setId(response.data);
+    })
+  },[])
+
+
+  let history = useHistory();
+  
+  const [collapseShow, setCollapseShow] = useState("hidden");
   return (
     <>
       <nav className="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6">
@@ -92,7 +106,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/dashboard"
+                  to="/user/dashboard"
                 >
                   <i
                     className={
@@ -114,7 +128,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/settings"
+                  to="/user/settings"
                 >
                   <i
                     className={
@@ -136,7 +150,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/tables"
+                  to="/user/tables"
                 >
                   <i
                     className={
@@ -158,7 +172,7 @@ export default function Sidebar() {
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/maps"
+                  to="/user/maps"
                 >
                   <i
                     className={
@@ -173,14 +187,14 @@ export default function Sidebar() {
               </li>
 
               <li className="items-center">
-                <Link
+                <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/tables") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/admin/accounts"
+                  onClick={() => {history.push(`/user/accounts/${id}`)}}
                 >
                   <i
                     className={
@@ -191,7 +205,7 @@ export default function Sidebar() {
                     }
                   ></i>{" "}
                   Accounts
-                </Link>
+                </button>
               </li>
 
             </ul>
