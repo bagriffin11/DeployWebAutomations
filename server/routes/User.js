@@ -15,12 +15,16 @@ router.get("/byId/:id", async (req,res) => {
     const user = await User.findByPk(id);
     res.json(user);
 }); 
+//findbypk finds the user info according to id. this is great for dashboard etc.
 
 router.get("/getid",validateToken, async (req, res) => {
     const id = req.user.id;
     res.json(id);
 
 })
+//this is great for setting the global param for id. grabs the data from validateToken
+
+
 
 router.post("/", async (req, res) => {
   const {fullname, email, password} = req.body;

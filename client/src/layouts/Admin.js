@@ -51,10 +51,10 @@ const [id, setId] = useState();
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <Switch>  
 
-            <Route path="/user/dashboard" exact component={() => <Dashboard authorized = {loggedIn} /> } />
-            <Route path="/user/maps" exact component={() => <Maps authorized = {loggedIn} /> } />
-            <Route path="/user/settings" exact component={() => <Settings authorized = {loggedIn} /> } />
-            <Route path="/user/tables" exact component={() => <Tables authorized = {loggedIn} /> } />
+            <Route path="/user/dashboard/:id" exact component={() => <Dashboard authorized = {loggedIn} /> } />
+            <Route path="/user/maps/:id" exact component={() => <Maps authorized = {loggedIn} /> } />
+            <Route path="/user/settings/:id" exact component={() => <Settings authorized = {loggedIn} /> } />
+            <Route path="/user/tables/:id" exact component={() => <Tables authorized = {loggedIn} /> } />
             <Route path="/user/accounts/:id" exact component={() => <Accounts authorized = {loggedIn} /> } />
 
             <Redirect from="/admin/dashboard" to="/" />

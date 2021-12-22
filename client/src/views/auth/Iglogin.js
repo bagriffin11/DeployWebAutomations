@@ -1,31 +1,23 @@
 
-import {React, useState, useEffect} from 'react'
+import {React, useState, useEffect, useContext} from 'react'
 import axios from "axios";
 import {useHistory} from "react-router-dom";
 import {useParams} from "react-router-dom";
-
+import {UserId} from "Global/Variables.js"
 
 export default function Iglogin() {
-let {id} = useParams(); 
+
 let history = useHistory();
 
 const [username, a] = useState("");
 const [password, b] = useState("");
 const [userObject, setUserObject] = useState({});
+const userid = useContext(UserId);
 
-useEffect(() => {
-  axios.get(`http://localhost:3001/user/byId/${id}`).then((response) => {
-    setUserObject(response.data);
-  });
-
-  axios.get(`http://localhost:3001/igaccount/${id}`).then((response) => {
-
-  });
-}, []);
 
 const onSubmit = () => {
     axios.post("http://localhost:3001/igaccount", {
-        username: username, password: password, UserId: id
+        username: username, password: password, UserId: userid
     }).then((response) => {
      history.push("/choose/Submitpage");
 });

@@ -1,4 +1,4 @@
-import {React, useContext} from "react";
+import {React, useContext, useEffect} from "react";
 
 // components
 
@@ -7,6 +7,8 @@ import CardBarChart from "components/Cards/CardBarChart.js";
 import CardPageVisits from "components/Cards/CardPageVisits.js";
 import CardSocialTraffic from "components/Cards/CardSocialTraffic.js";
 import {Redirect} from "react-router-dom";
+import axios from "axios";
+
 
 
 export default function Dashboard({authorized}) {
@@ -14,6 +16,7 @@ export default function Dashboard({authorized}) {
   if (!authorized){
     return <Redirect to="/" />
   }
+
   return (
     <>
     

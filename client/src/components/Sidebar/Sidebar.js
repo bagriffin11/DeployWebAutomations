@@ -99,14 +99,14 @@ const [id, setId] = useState();
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
-                <Link
+                <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/dashboard") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/user/dashboard"
+                  onClick={() => {history.push(`/user/dashboard/${id}`)}}
                 >
                   <i
                     className={
@@ -117,18 +117,18 @@ const [id, setId] = useState();
                     }
                   ></i>{" "}
                   Dashboard
-                </Link>
+                </button>
               </li>
 
               <li className="items-center">
-                <Link
+                <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/settings") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/user/settings"
+                  onClick={() => {history.push(`/user/settings/${id}`)}}
                 >
                   <i
                     className={
@@ -139,18 +139,18 @@ const [id, setId] = useState();
                     }
                   ></i>{" "}
                   Settings
-                </Link>
+                </button>
               </li>
 
               <li className="items-center">
-                <Link
+                <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/tables") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/user/tables"
+                  onClick={() => {history.push(`/user/tables/${id}`)}}
                 >
                   <i
                     className={
@@ -161,18 +161,18 @@ const [id, setId] = useState();
                     }
                   ></i>{" "}
                   Tables
-                </Link>
+                </button>
               </li>
 
               <li className="items-center">
-                <Link
+                <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
                     (window.location.href.indexOf("/admin/maps") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  to="/user/maps"
+                  onClick={() => {history.push(`/user/maps/${id}`)}}
                 >
                   <i
                     className={
@@ -183,7 +183,7 @@ const [id, setId] = useState();
                     }
                   ></i>{" "}
                   Maps
-                </Link>
+                </button>
               </li>
 
               <li className="items-center">
