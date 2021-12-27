@@ -16,13 +16,26 @@ export default function Register() {
     
 
     const onSubmit = (data) => {
+
+      axios.all([
         axios.post("http://localhost:3001/user", {
-          
             fullname: fullname, email: email, password: password
-        }).then((response) => {
-          history.push("/user");
-        });
+        }),
+         axios.post("http://localhost:3001/register", {
+            email:email, password: password
+          })
+      ])
+      .then(axios.spread((response) => {
+        // output of req.
+        console.log("success")
+      }));
+
+
+      
   };
+
+
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">

@@ -15,15 +15,17 @@ import Dashboard from "views/admin/Dashboard.js";
 import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
-import Accounts from "views/admin/Accounts.js"
-import {LoginContext, UserId} from "Global/Variables.js"
+import Accounts from "views/admin/Accounts.js";
+import Tasks from "views/admin/Tasks.js";
+import Profile from "views/admin/Profile.js";
+import {LoginContext, UserId, UserName} from "Global/Variables.js"
 
 
 
 export default function Admin() {
 const [loggedIn, setLoggedIn] = useState("");
 const [id, setId] = useState();
-
+const [name, setName] = useState("");
 
 
   useEffect(() => {
@@ -38,12 +40,18 @@ const [id, setId] = useState();
     })
   },[])
 
+  useEffect(() => {
+    axios.get("http://localhost:3001/user/getname").then((response) => {
+       setName(response.data);
+    })
+  },[])
+
   return (
     <>          
   <LoginContext.Provider value={loggedIn}>
   <UserId.Provider value={id}>
-
-      <Sidebar />
+ <UserName.Provider value={name} >
+ <Sidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
         {/* Header */}
@@ -53,9 +61,12 @@ const [id, setId] = useState();
 
             <Route path="/user/dashboard/:id" exact component={() => <Dashboard authorized = {loggedIn} /> } />
             <Route path="/user/maps/:id" exact component={() => <Maps authorized = {loggedIn} /> } />
-            <Route path="/user/settings/:id" exact component={() => <Settings authorized = {loggedIn} /> } />
-            <Route path="/user/tables/:id" exact component={() => <Tables authorized = {loggedIn} /> } />
+            <Route path="/user/settings" exact component={() => <Settings authorized = {loggedIn} /> } />
+            <Route path="/user/tables" exact component={() => <Tables authorized = {loggedIn} /> } />
             <Route path="/user/accounts/:id" exact component={() => <Accounts authorized = {loggedIn} /> } />
+            <Route path="/user/tasks" exact component={() => <Tasks authorized = {loggedIn} /> } />
+            <Route path="/user/profile/:name" exact component={Profile} />
+
 
             <Redirect from="/admin/dashboard" to="/" />
           </Switch>
@@ -63,6 +74,7 @@ const [id, setId] = useState();
         </div>
       </div>
 
+ </UserName.Provider>
   </UserId.Provider>
   </LoginContext.Provider>
 

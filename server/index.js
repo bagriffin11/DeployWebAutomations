@@ -29,6 +29,13 @@ app.use("/fbaccount", fbRouter);
 const emailRouter = require('./routes/Emailaccount');
 app.use("/emailaccount", emailRouter);
 
+const businessRouter = require('./routes/Business');
+app.use("/business", businessRouter);
+
+const infoRouter = require('./routes/Info');
+app.use("/info", infoRouter);
+
+
 //must pass in validate token into each api call (leave async)
 app.get("/auth", validateToken, (req, res) => {
   if (validateToken){

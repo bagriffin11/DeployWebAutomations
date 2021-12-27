@@ -2,7 +2,7 @@ const {sign, verify} = require("jsonwebtoken")
 
 const createTokens = (user) => {
     const accessToken = sign(
-        { email: user.email, id: user.id},
+        { email: user.email, id: user.id, name: user.fullname},
          "jwtsecret");
 
    // const id = accessToken.id; this is how you get the id

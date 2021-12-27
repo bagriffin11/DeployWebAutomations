@@ -17,6 +17,13 @@ const [id, setId] = useState();
     })
   },[])
 
+  const [name, setName] = useState();
+  useEffect(() => {
+    axios.get("http://localhost:3001/user/getname").then((response) => {
+       setName(response.data);
+    })
+  },[])
+
 
   let history = useHistory();
   
@@ -120,77 +127,58 @@ const [id, setId] = useState();
                 </button>
               </li>
 
-              <li className="items-center">
-                <button
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/settings") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  onClick={() => {history.push(`/user/settings/${id}`)}}
-                >
-                  <i
-                    className={
-                      "fas fa-tools mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/settings") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Settings
-                </button>
-              </li>
+            
+
+             
 
               <li className="items-center">
                 <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
+                    (window.location.href.indexOf("/user/profile/:name") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
-                  onClick={() => {history.push(`/user/tables/${id}`)}}
-                >
-                  <i
-                    className={
-                      "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
-                        ? "opacity-75"
-                        : "text-blueGray-300")
-                    }
-                  ></i>{" "}
-                  Tables
-                </button>
-              </li>
-
-              <li className="items-center">
-                <button
-                  className={
-                    "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/maps") !== -1
-                      ? "text-lightBlue-500 hover:text-lightBlue-600"
-                      : "text-blueGray-700 hover:text-blueGray-500")
-                  }
-                  onClick={() => {history.push(`/user/maps/${id}`)}}
+                  onClick={() => {history.push(`/user/profile/${name}`)}}
                 >
                   <i
                     className={
                       "fas fa-map-marked mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/maps") !== -1
+                      (window.location.href.indexOf("/user/profile/:name") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Maps
+                  Profile
                 </button>
+              </li>
+
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/user/tasks") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                    to = "/user/tasks"              >
+                  <i
+                    className={
+                      "fas fa-map-marked mr-2 text-sm " +
+                      (window.location.href.indexOf("/user/tasks") !== -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  Tasks
+                </Link>
               </li>
 
               <li className="items-center">
                 <button
                   className={
                     "text-xs uppercase py-3 font-bold block " +
-                    (window.location.href.indexOf("/admin/tables") !== -1
+                    (window.location.href.indexOf("/user/accounts/:id") !== -1
                       ? "text-lightBlue-500 hover:text-lightBlue-600"
                       : "text-blueGray-700 hover:text-blueGray-500")
                   }
@@ -199,7 +187,7 @@ const [id, setId] = useState();
                   <i
                     className={
                       "fas fa-table mr-2 text-sm " +
-                      (window.location.href.indexOf("/admin/tables") !== -1
+                      (window.location.href.indexOf("/user/accounts/:id") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }

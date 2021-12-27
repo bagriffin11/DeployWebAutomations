@@ -13,7 +13,6 @@ import Auth from "layouts/Auth.js";
 // views without layouts
 
 import Landing from "views/Landing.js";
-import Profile from "views/Profile.js";
 
 // Global variables 
 
@@ -28,8 +27,6 @@ ReactDOM.render(
       <Route path="/user" component= {Admin} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
-      <Route path="/profile" exact component={Profile} />
-      {/* add redirect for first page */}
       
     </Switch>
   </BrowserRouter>,

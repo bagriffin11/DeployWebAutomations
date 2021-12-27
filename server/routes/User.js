@@ -20,8 +20,13 @@ router.get("/byId/:id", async (req,res) => {
 router.get("/getid",validateToken, async (req, res) => {
     const id = req.user.id;
     res.json(id);
-
 })
+
+router.get("/getname",validateToken, async (req, res) => {
+    const name = req.user.name;
+    res.json(name);
+})
+
 //this is great for setting the global param for id. grabs the data from validateToken
 
 
@@ -38,6 +43,24 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.post("/register", async (req, res) => {
+    const {email} = req.body;
+    const user = await User.findOne({where: {email: email}});
+    if (!user) {
+        res.status(400).json({error: "user doesnt exist"
+    });
+    }
+    else {
+        const accessToken = createTokens(user)
+
+    res.cookie("access-token", accessToken,{
+        maxAge: 60*100,
+        httpOnly: true,
+    }); 
+     res.json(accessToken);
+    }
+});
+
 router.post("/login", async (req,res) => {
     const {email, password} = req.body;
     const user = await User.findOne({where: {email: email}});
@@ -51,13 +74,12 @@ router.post("/login", async (req,res) => {
         else {
 
             const accessToken = createTokens(user)
-
+            
             res.cookie("access-token", accessToken,{
                 maxAge: 60*60*24*30*1000,
                 httpOnly: true,
             });
                 res.json(accessToken);
-
         }
     });
 });

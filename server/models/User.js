@@ -29,11 +29,17 @@ module.exports = (sequelize, DataTypes) => {
     //crypted password
 
     User.associate = (models) => {
-        User.hasMany(models.Igaccount, {
+        User.hasMany(models.Business, {
            onDelete: "cascade",
-        });
+        },
+        User.hasOne(models.Info,{
+            onDelete: "cascade"
+        }));
             //this makes igaccount linked to posts
   }; 
+ 
+    
+ 
   
     return User
 

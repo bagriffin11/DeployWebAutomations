@@ -11,7 +11,6 @@ let history = useHistory();
 
 const [username, a] = useState("");
 const [password, b] = useState("");
-const [userObject, setUserObject] = useState({});
 const userid = useContext(UserId);
 
 

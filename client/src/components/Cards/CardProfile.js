@@ -1,8 +1,29 @@
-import React from "react";
+import {React, useEffect, useState, useContext} from "react";
+import axios from "axios";
+import {UserName, UserId} from "Global/Variables.js"
+import {useHistory} from "react-router-dom";
+
+
 
 // components
 
 export default function CardProfile() {
+  let history = useHistory();
+
+  const name = useContext(UserName); 
+  const id = useContext(UserId);
+  const [user, setUser] = useState({});
+  const onSubmit = () => {
+    history.push("/user/settings");
+  }
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/user/byId/${id}`).then((response) => {
+       setUser(response.data);
+    })
+  },[])
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -21,29 +42,35 @@ export default function CardProfile() {
               <div className="flex justify-center py-4 lg:pt-4 pt-8">
                 <div className="mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                    22
+                    5
                   </span>
-                  <span className="text-sm text-blueGray-400">Friends</span>
+                  <span className="text-sm text-blueGray-400">Accounts</span>
                 </div>
                 <div className="mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                    10
+                    100
                   </span>
-                  <span className="text-sm text-blueGray-400">Photos</span>
+                  <span className="text-sm text-blueGray-400">Tasks</span>
                 </div>
                 <div className="lg:mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                    89
+                    12
                   </span>
-                  <span className="text-sm text-blueGray-400">Comments</span>
+                  <span className="text-sm text-blueGray-400">Months</span>
                 </div>
               </div>
             </div>
           </div>
           <div className="text-center mt-12">
+            
             <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-              Jenna Stones
+              {user.fullname}
             </h3>
+            <button 
+            className="bg-blue text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+            onClick = {onSubmit}>
+              Edit Info
+            </button>
             <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
               <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
               Los Angeles, California
