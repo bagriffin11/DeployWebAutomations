@@ -3,9 +3,9 @@ const router = express.Router();
 const {Business} = require('../models');
 
 //can write post and get requests 
-router.get("/:userId", async (req, res) =>{
-   const userId = req.params.userId;
-   const business = await Business.findAll({where: {UserId: userId} });
+router.get("/getUserId/:id", async (req, res) =>{
+   const id = req.params.id;
+   const business = await Business.findAll({where: {UserId: id} });
    res.json(business);
 });
 //instead of send you can put json and it returns a string

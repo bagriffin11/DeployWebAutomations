@@ -21,7 +21,7 @@ export default function Account() {
         <br>
         </br>
       
-        <Link to="/Iglogin/:id" >
+        <Link to="/Iglogin" >
           <i className="lg:text-blue-200 text-blueGray-400 fab fa-instagram text-lg leading-lg "></i>
 Instagram</Link>
       <br>
@@ -34,7 +34,7 @@ Gmail</Link>
           <Switch>
             <Route path="/Submitpage" exact component = {Submitpage} />
             <Route path="/Emaillogin" exact component = {Emaillogin} />
-            <Route path="/Iglogin/:id" exact component = {Iglogin} />
+            <Route path="/Iglogin" exact component = {Iglogin} />
             <Route path="/Fblogin" exact component = {Fblogin} />
           </Switch>
           

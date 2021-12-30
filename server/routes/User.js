@@ -5,7 +5,7 @@ const bcrypt = require("bcrypt");
 const {createTokens, validateToken} = require("../jwt/Jwt")
 
 //can write post and get requests 
-router.get("/", async (req, res) =>{
+router.get("/", async (req, res) =>{ 
     //res.json("helloworld");
     const listOfUsers = await User.findAll()
     res.json(listOfUsers);
@@ -41,7 +41,9 @@ router.post("/", async (req, res) => {
       });
       res.json("success");
   });
-});
+}); 
+
+
 
 router.post("/register", async (req, res) => {
     const {email} = req.body;
@@ -51,10 +53,10 @@ router.post("/register", async (req, res) => {
     });
     }
     else {
-        const accessToken = createTokens(user)
+    const accessToken = createTokens(user)
 
-    res.cookie("access-token", accessToken,{
-        maxAge: 60*100,
+    res.cookie("access-token", accessToken, {
+        maxAge: 60*60*24*30*1000,
         httpOnly: true,
     }); 
      res.json(accessToken);

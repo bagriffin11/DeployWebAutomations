@@ -5,26 +5,13 @@ module.exports = (sequelize, DataTypes) => {
     const Igaccount = sequelize.define("Igaccount",{
         username: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         }
     });
-
-    Igaccount.beforeCreate((igaccount, options) => {
-        return bcrypt.hash(igaccount.password, 10)
-            .then(hash => {
-                igaccount.password = hash;
-            })
-            .catch(err => { 
-                throw new Error(); 
-            });
-    });
-
-   
-
   
   
     return Igaccount;

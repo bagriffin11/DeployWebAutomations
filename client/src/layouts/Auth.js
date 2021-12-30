@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useLayoutEffect} from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 // components
@@ -24,7 +24,7 @@ export default function Auth() {
        setLoggedIn(response.data);
     })
   },[])
-  useEffect(() => {
+  useLayoutEffect(() => {
     axios.get("http://localhost:3001/user/getid").then((response) => {
        setId(response.data);
     })
@@ -46,6 +46,7 @@ export default function Auth() {
             }}
           ></div>
           <Switch>
+
             <Route path="/auth/iglogin" exact component={Iglogin} />
             <Route path="/auth/login" exact component={Login} />
             <Route path="/auth/register" exact component={Register} />

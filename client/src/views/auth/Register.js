@@ -3,34 +3,37 @@ import axios from "axios";
 import {useState} from 'react';
 import {useHistory} from "react-router-dom";
 import { Link} from "react-router-dom";
+import Popupregister from "components/Popup/Popupig.js";
+import Enterpage from './Enterpage.js'
+import {UserEmail} from 'Global/Variables.js'
+
 
 
 export default function Register() {
 
   let history = useHistory();
+  axios.defaults.withCredentials = true;
 
+  const [buttonPopup, setButtonPopup] = useState(false);
   const [fullname, fullName] = useState("");
   const [email, Email] = useState("");
   const [password, Password] = useState("");
-
-    
+  
 
     const onSubmit = (data) => {
 
-      axios.all([
-        axios.post("http://localhost:3001/user", {
-            fullname: fullname, email: email, password: password
-        }),
-         axios.post("http://localhost:3001/register", {
-            email:email, password: password
-          })
-      ])
-      .then(axios.spread((response) => {
-        // output of req.
-        console.log("success")
-      }));
-
-
+      axios.post("http://localhost:3001/user", {
+        fullname: fullname,
+        email:email, password: password
+    }).then((response) => {
+      if (response.data.error) {
+                alert(response.data.error);
+      }
+      else {
+       //  sessionStorage.setItem("accessToken", response.data);
+      setButtonPopup(true);
+      }
+    });
       
   };
 
@@ -38,7 +41,8 @@ export default function Register() {
 
   return (
     <>
-      <div className="container mx-auto px-4 h-full">
+    <UserEmail.Provider value={email}>
+ <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-6/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
@@ -169,7 +173,13 @@ export default function Register() {
             </div>
           </div>
         </div>
+        <Popupregister trigger = {buttonPopup} setTrigger={setButtonPopup}>
+        <h3>Choose Account:</h3>
+          < Enterpage />
+      </Popupregister>
       </div>
+    </UserEmail.Provider>
+     
     </>
   );
 }

@@ -10,6 +10,7 @@ import HeaderStats from "components/Headers/HeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
+import CardUserInfo from "components/Cards/CardUserInfo.js"
 
 import Dashboard from "views/admin/Dashboard.js";
 import Maps from "views/admin/Maps.js";
@@ -58,7 +59,6 @@ const [name, setName] = useState("");
         <HeaderStats />
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <Switch>  
-
             <Route path="/user/dashboard/:id" exact component={() => <Dashboard authorized = {loggedIn} /> } />
             <Route path="/user/maps/:id" exact component={() => <Maps authorized = {loggedIn} /> } />
             <Route path="/user/settings" exact component={() => <Settings authorized = {loggedIn} /> } />
@@ -66,6 +66,7 @@ const [name, setName] = useState("");
             <Route path="/user/accounts/:id" exact component={() => <Accounts authorized = {loggedIn} /> } />
             <Route path="/user/tasks" exact component={() => <Tasks authorized = {loggedIn} /> } />
             <Route path="/user/profile/:name" exact component={Profile} />
+            <Route path="/user/info" exact component={CardUserInfo} />
 
 
             <Redirect from="/admin/dashboard" to="/" />

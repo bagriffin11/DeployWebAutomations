@@ -16,25 +16,26 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         }
     });
-
-    User.beforeCreate((user, options) => {
-        return bcrypt.hash(user.password, 10)
+/*
+    User.beforeCreate((user) => {
+        return bcrypt.hash(user.password, 4)
             .then(hash => {
                 user.password = hash;
             })
             .catch(err => { 
                 throw new Error(); 
             });
-    });
+    });*/
     //crypted password
 
     User.associate = (models) => {
         User.hasMany(models.Business, {
            onDelete: "cascade",
-        },
+        });
         User.hasOne(models.Info,{
             onDelete: "cascade"
-        }));
+        });
+        
             //this makes igaccount linked to posts
   }; 
  
