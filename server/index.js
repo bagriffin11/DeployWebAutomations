@@ -20,14 +20,6 @@ const db = require("./models");
 const userRouter = require('./routes/User');
 app.use("/user", userRouter); //type in the browser localhost:3001/posts to view
 //make into /auth so it links to all the other pages 
-const igRouter = require('./routes/Igaccount');
-app.use("/igaccount", igRouter);
-
-const fbRouter = require('./routes/Fbaccount');
-app.use("/fbaccount", fbRouter);
-
-const emailRouter = require('./routes/Emailaccount');
-app.use("/emailaccount", emailRouter);
 
 const businessRouter = require('./routes/Business');
 app.use("/business", businessRouter);

@@ -10,8 +10,8 @@ import HeaderStats from "components/Headers/HeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
-import CardUserInfo from "components/Cards/CardUserInfo.js"
-
+import CardUserInfo from "components/Cards/CardUserInfo.js";
+import CardBusinessInfo from "components/Cards/CardBusinessInfo.js";
 import Dashboard from "views/admin/Dashboard.js";
 import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
@@ -67,6 +67,7 @@ const [name, setName] = useState("");
             <Route path="/user/tasks" exact component={() => <Tasks authorized = {loggedIn} /> } />
             <Route path="/user/profile/:name" exact component={Profile} />
             <Route path="/user/info" exact component={CardUserInfo} />
+            <Route path="/user/accountinfo" exact component={CardBusinessInfo} />
 
 
             <Redirect from="/admin/dashboard" to="/" />

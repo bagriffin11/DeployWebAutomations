@@ -5,13 +5,19 @@ import {UserId} from "Global/Variables.js";
 
 // components
 
-export default function CardBusiness() {
+export default function CardBusinessTable() {
 
     const [businesses, setBusinesses] = useState([]);
     const id = useContext(UserId);
 
     useEffect(() => {
         axios.get(`http://localhost:3001/business/getUserId/${id}`).then((response) => {
+           setBusinesses(response.data);
+        })
+      },[]);
+
+      useEffect(() => {
+        axios.get(`http://localhost:3001/igaccount/getUserId/${id}`).then((response) => {
            setBusinesses(response.data);
         })
       },[]);
@@ -49,7 +55,7 @@ export default function CardBusiness() {
                 </th>
               </tr>
             </thead>
-            
+
             <tbody>
                 {businesses.map((value, key) => {
                   return(
@@ -58,14 +64,14 @@ export default function CardBusiness() {
                   {value.business}
                 </th>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  4,569
+                  {value.igusername}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  340
+                  {value.fbusername}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  <i className="fas fa-arrow-up text-emerald-500 mr-4"></i>
-                  46,53%
+                  
+                  {value.emailusername}
                 </td>
               </tr>
                );

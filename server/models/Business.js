@@ -5,21 +5,33 @@ module.exports = (sequelize, DataTypes) => {
         business: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        igusername: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        igpassword: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        fbusername: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        fbpassword: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        emailusername: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        emailpassword: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     });
 
-    Business.associate = (models) => {
-        Business.hasOne(models.Igaccount, {
-           onDelete: "cascade",
-        });
-        Business.hasOne(models.Emailaccount,{
-            onDelete: "cascade"
-        });
-        Business.hasOne(models.Fbaccount,{
-            onDelete: "cascade"
-        });
-            //this makes igaccount linked to posts
-  }; 
 
     return Business;
 };
