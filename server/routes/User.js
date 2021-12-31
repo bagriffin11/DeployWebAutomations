@@ -29,6 +29,14 @@ router.get("/getname",validateToken, async (req, res) => {
 
 //this is great for setting the global param for id. grabs the data from validateToken
 
+router.put("/update/:id", async (req, res) =>{
+    const id = req.params.id;
+    const {fullname, email} = req.body;
+    await User.update({fullname: fullname, email: email},
+        {where: {id: id}});
+    
+    
+})
 
 
 router.post("/", async (req, res) => {

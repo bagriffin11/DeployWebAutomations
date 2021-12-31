@@ -8,7 +8,7 @@ const {validateToken} = require("./jwt/Jwt")
 app.use(express.json()); //allows for json to be used in insomnia 
 app.use(cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true
 }));
 app.use(cookieParser());

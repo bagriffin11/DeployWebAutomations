@@ -20,7 +20,7 @@ import Accounts from "views/admin/Accounts.js";
 import Tasks from "views/admin/Tasks.js";
 import Profile from "views/admin/Profile.js";
 import {LoginContext, UserId, UserName} from "Global/Variables.js"
-
+import CardProfile from "components/Cards/CardProfile.js";
 
 
 export default function Admin() {
@@ -65,9 +65,10 @@ const [name, setName] = useState("");
             <Route path="/user/tables" exact component={() => <Tables authorized = {loggedIn} /> } />
             <Route path="/user/accounts/:id" exact component={() => <Accounts authorized = {loggedIn} /> } />
             <Route path="/user/tasks" exact component={() => <Tasks authorized = {loggedIn} /> } />
-            <Route path="/user/profile/:name" exact component={Profile} />
+            <Route path="/user/profile/:id" exact component={Profile} />
             <Route path="/user/info" exact component={CardUserInfo} />
             <Route path="/user/accountinfo" exact component={CardBusinessInfo} />
+            <Route path="/user/prof" exact component={CardProfile} />
 
 
             <Redirect from="/admin/dashboard" to="/" />

@@ -2,10 +2,12 @@
 import {React, useState, useEffect, useContext} from 'react';
 import axios from "axios";
 import {UserId} from "Global/Variables.js";
+import {useHistory} from "react-router-dom";
 
 // components
 
 export default function CardBusinessTable() {
+  let history = useHistory();
 
     const [businesses, setBusinesses] = useState([]);
     const id = useContext(UserId);
@@ -21,6 +23,13 @@ export default function CardBusinessTable() {
            setBusinesses(response.data);
         })
       },[]);
+
+      const deleteBusiness = (id) => {
+        axios.delete(`http://localhost:3001/business/delete/${id}`).then(()=> {
+          alert("delete success");
+        }
+        )
+      };
 
   return (
     <>
@@ -72,6 +81,14 @@ export default function CardBusinessTable() {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   
                   {value.emailusername}
+                </td>
+                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
+                  <button onClick = {() => {axios.delete(`http://localhost:3001/business/delete/${value.id}`).then((response)=> {
+   history.push(`/user/accounts/${id}`);
+
+                  })}}>
+                    Delete
+                  </button>
                 </td>
               </tr>
                );

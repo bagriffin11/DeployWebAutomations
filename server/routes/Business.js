@@ -9,7 +9,11 @@ router.get("/getUserId/:id", async (req, res) =>{
    res.json(business);
 });
 //instead of send you can put json and it returns a string
-
+router.delete("/delete/:id", async (req,res) => {
+    const bus = req.params.id
+    await Business.destroy({where: {id: bus}});
+    res.json("Deleted business");
+})
 
 
 router.post("/", async (req, res) => {

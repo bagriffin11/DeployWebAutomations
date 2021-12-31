@@ -1,4 +1,4 @@
-import {React, useState, useContext} from "react";
+import {React, useState, useContext, useEffect} from "react";
 import axios from "axios";
 import {useHistory, Link} from "react-router-dom";
 import {UserId} from "Global/Variables.js"
@@ -8,7 +8,7 @@ import {UserId} from "Global/Variables.js"
 
 export default function CardSettings() {
   let history = useHistory();
-
+const id = useContext(UserId);
 
   const [status, setStatus] = useState("");
   const [degree, setDegree] = useState("");
@@ -16,19 +16,55 @@ export default function CardSettings() {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
-  const userid = useContext(UserId);
+  const [fullname, setName] = useState("");
+  const [email, setEmail] = useState("");
 
-  const onSubmit = (data) => {
-    axios.post("http://localhost:3001/info", {
-      
-        status: status, degree: degree, 
-        college: college, city: city, 
-        state: state, country: country,
-        UserId: userid
+  const [user, setUser] = useState({});
+  const [info, setInfo] = useState({});
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/user/byId/${id}`).then((response) => {
+       setUser(response.data);
+       
+    });
+    
+    axios.get(`http://localhost:3001/info/byUserId/${id}`).then((response) => {
+       setInfo(response.data[0]);
+    });
+  },[]);
+
+
+
+  const updateUser = (data) => {
+    axios.put(`http://localhost:3001/user/update/${id}`, {
+      fullname: fullname,
+        email:email
 
     }).then((response) => {
-      history.push(`/user/profile/${userid}`);
+      history.push(`/user/profile/${id}`);
     });
+};
+
+const updateEducation = (data) => {
+  axios.put(`http://localhost:3001/info/updateeducation/${id}`, {
+    
+      status: status, degree: degree, 
+      college: college
+
+  }).then((response) => {
+    history.push(`/user/profile/${id}`);
+  });
+};
+
+const updateLocation = (data) => {
+  axios.put(`http://localhost:3001/info/updatelocation/${id}`, {
+    
+      city: city, 
+      state: state, country: country
+
+  }).then((response) => {
+    history.push(`/user/prof`);
+  });
 };
 
   return (
@@ -41,7 +77,7 @@ export default function CardSettings() {
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
             >
-              Settings
+              Logout
             </button>
           </div>
         </div>
@@ -63,7 +99,10 @@ export default function CardSettings() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="jesse@example.com"
+                    value= {user.email}
+                    onChange = {(e)=>  {
+                      setEmail(e.target.value);
+                    }}
                   />
                 </div>
               </div>
@@ -73,37 +112,27 @@ export default function CardSettings() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    First Name
+                    Name
                   </label>
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Lucky"
+                    value= {user.fullname}
+                    onChange = {(e)=>  {
+                      setName(e.target.value);
+                    }}
                   />
                 </div>
               </div>
-              <div className="w-full lg:w-6/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Jesse"
-                  />
-                </div>
-              </div>
+            
            
               <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button" 
+                      onClick = {updateUser}
                     >
-                      Save
+                      Update
                     </button>
                   </div>
           
@@ -129,7 +158,7 @@ export default function CardSettings() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="New York" 
+                    value= {info.status}
                     onChange = {(e)=>  {
                       setStatus(e.target.value);
                     }}
@@ -147,7 +176,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
+                    value={info.degree}
                     onChange = {(e)=>  {
                       setDegree(e.target.value);
                     }}
@@ -165,19 +194,29 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Postal Code"
+                    value={info.college}
                     onChange = {(e)=>  {
                       setCollege(e.target.value);
                     }}
                   />
                 </div>
               </div>
+
+              <div className="text-center mt-6">
+                    <button
+                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      type="button" 
+                      onClick = {updateEducation}
+                    >
+                      Update
+                    </button>
+                  </div>
             </div>
 
             <hr className="mt-6 border-b-1 border-blueGray-300" />
 
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Contact Information
+              Location
             </h6>
             <div className="flex flex-wrap">
           
@@ -192,7 +231,7 @@ export default function CardSettings() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="New York"
+                    defaultValue={info.city}
                     onChange = {(e)=>  {
                       setCity(e.target.value);
                     }}
@@ -210,7 +249,7 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
+                    defaultValue={info.state}
                     onChange = {(e)=>  {
                       setState(e.target.value);
                     }}
@@ -228,24 +267,26 @@ export default function CardSettings() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Postal Code"
+                    defaultValue={info.country}
                     onChange = {(e)=>  {
                       setCountry(e.target.value);
                     }}
                   />
                 </div>
               </div>
-            </div>
-
-            <div className="text-center mt-6">
+          <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="button" 
-                      onClick = {onSubmit}
+                      onClick = {updateLocation}
                     >
-                      Save
+                      Update
                     </button>
                   </div>
+
+            </div>
+
+  
            
           </form>
         </div>
