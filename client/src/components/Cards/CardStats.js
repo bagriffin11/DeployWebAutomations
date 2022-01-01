@@ -1,4 +1,8 @@
-import React from "react";
+import {React, useState, useEffect, useContext } from "react";
+import axios from "axios";
+import {UserId} from "Global/Variables.js";
+import {useHistory} from "react-router-dom";
+import 'assets/styles/hover.css'
 import PropTypes from "prop-types";
 
 export default function CardStats({
@@ -10,10 +14,21 @@ export default function CardStats({
   statDescripiron,
   statIconName,
   statIconColor,
-}) {
+}) { 
+  let history = useHistory();
+
+  const id = useContext(UserId);
+
+  const onSubmit = () => {
+    history.push(`/user/accounts/${id}`);
+  
+  }
+
+  
   return (
     <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg">
+
+      <div hoverable onClick={onSubmit} className="relative flex flex-col min-w-0 break-words bg-white rounded mb-6 xl:mb-0 shadow-lg hover">
         <div className="flex-auto p-4">
           <div className="flex flex-wrap">
             <div className="relative w-full pr-4 max-w-full flex-grow flex-1">
@@ -57,12 +72,12 @@ export default function CardStats({
 }
 
 CardStats.defaultProps = {
-  statSubtitle: "Traffic",
-  statTitle: "350,897",
+  statSubtitle: "Create a Business",
+  statTitle: "# Tasks",
   statArrow: "up",
-  statPercent: "3.48",
+  statPercent: "0",
   statPercentColor: "text-emerald-500",
-  statDescripiron: "Since last month",
+  statDescripiron: "Since Today",
   statIconName: "far fa-chart-bar",
   statIconColor: "bg-red-500",
 };

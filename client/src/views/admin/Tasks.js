@@ -3,7 +3,9 @@ import {Redirect} from "react-router-dom";
 
 // components
 
-import CardTable from "components/Cards/CardTable.js";
+import CardTableTask from "components/Cards/CardTableTask.js";
+import CardTableHistory from "components/Cards/CardTableHistory.js";
+
 
 export default function Tasks({authorized}) {
   if (!authorized){
@@ -13,10 +15,10 @@ export default function Tasks({authorized}) {
     <>
       <div className="flex flex-wrap mt-4">
         <div className="w-full mb-12 px-4">
-          <CardTable />
+          <CardTableTask />
         </div>
         <div className="w-full mb-12 px-4">
-          <CardTable color="dark" />
+          <CardTableHistory color="dark" />
         </div>
       </div>
     </>

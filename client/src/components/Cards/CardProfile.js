@@ -13,6 +13,7 @@ export default function CardProfile() {
   const id = useContext(UserId);
   const [user, setUser] = useState({});
   const [info, setInfo] = useState({});
+  
   const onSubmit = () => {
     history.push("/user/settings");
   }

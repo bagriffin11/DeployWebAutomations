@@ -1,19 +1,24 @@
-import {React, useState, useEffect } from "react";
-import {useParams} from "react-router-dom";
+import {React, useState, useEffect, useContext } from "react";
 import axios from "axios";
+import {UserId} from "Global/Variables.js";
+import {useHistory} from "react-router-dom";
+import 'assets/styles/hover.css'
+
 // components
 
 import CardStats from "components/Cards/CardStats.js";
 
 export default function HeaderStats() {
 //import user's info
-let {id} = useParams();
-const [userObject, setUserObject] = useState({});
+let history = useHistory();
+
+const [businesses, setBusinesses] = useState([]);
+const id = useContext(UserId);
 
 useEffect(() =>{
-  axios.get(`http://localhost:3001/user/byId/${id}`).then((response) => {
-    setUserObject(response);
-  });
+  axios.get(`http://localhost:3001/business/getUserId/${id}`).then((response) => {
+    setBusinesses(response.data);
+ })
 });
 
 
@@ -28,12 +33,14 @@ useEffect(() =>{
         <div className="px-4 md:px-10 mx-auto w-full">
           <div>
             {/* Card stats */}
-            <div> {userObject.fullname}</div>
+            
             <div className="flex flex-wrap">
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
+            {businesses.map((value, key) => {
+                  return(
+              <div  className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle="TRAFFIC"
-                  statTitle="350,897"
+                  statSubtitle={value.business}
+                  statTitle="357 tasks"
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"
@@ -41,19 +48,9 @@ useEffect(() =>{
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />
-              </div>
-              <div className="w-full lg:w-6/12 xl:w-3/12 px-4">
-                <CardStats
-                  statSubtitle="NEW USERS"
-                  statTitle="2,356"
-                  statArrow="down"
-                  statPercent="3.48"
-                  statPercentColor="text-red-500"
-                  statDescripiron="Since last week"
-                  statIconName="fas fa-chart-pie"
-                  statIconColor="bg-orange-500"
-                />
-              </div>
+                </div>
+           );
+          })}
             
              
             </div>
