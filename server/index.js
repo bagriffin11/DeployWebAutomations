@@ -27,6 +27,8 @@ app.use("/business", businessRouter);
 const infoRouter = require('./routes/Info');
 app.use("/info", infoRouter);
 
+const taskRouter = require('./routes/Task');
+app.use("/task", taskRouter);
 
 //must pass in validate token into each api call (leave async)
 app.get("/auth", validateToken, (req, res) => {

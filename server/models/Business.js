@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
         }
     });
 
+    Business.associate = (models) => {
+        Business.hasMany(models.Task, {
+           onDelete: "cascade",
+        });
+  }; 
 
     return Business;
 };

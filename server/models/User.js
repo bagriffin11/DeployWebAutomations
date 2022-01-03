@@ -35,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
         User.hasOne(models.Info,{
             onDelete: "cascade"
         });
-        
+
+        User.hasMany(models.Task,{
+            onDelete: "cascade"
+        });
             //this makes igaccount linked to posts
   }; 
  

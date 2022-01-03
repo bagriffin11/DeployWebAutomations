@@ -1,38 +1,47 @@
-import {React, useState, useContext} from "react";
+import {React, useState, useContext, Component, useEffect} from "react";
 import axios from "axios";
 import {useHistory, Link} from "react-router-dom";
 import {UserId} from "Global/Variables.js"
 
-
 // components
 
-export default function CardBusinessInfo() {
+export default function CardTaskEditor() {
   let history = useHistory();
 
 
-  const [business, setBusiness] = useState("");
-  const [igusername, setIgU] = useState("");
-  const [igpassword, setIgP] = useState("");
-  const [fbusername, setFbU] = useState("");
-  const [fbpassword, setFbP] = useState("");
-  const [emailusername, setEmailU] = useState("");
-  const [emailpassword, setEmailP] = useState("");
-
+  
   const id = useContext(UserId);
 
+  const [businesses, setBusinesses] = useState([]);
+  const [business, setBusiness] = useState("");
+  const [account,setAccount] = useState("");
+  const [action, setAction] = useState("");
+  const [message, setMessage] = useState("");
+  const [date,setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [busid, setBusId] = useState("");
+
+
+
+
+  useEffect(() =>{
+    axios.get(`http://localhost:3001/business/getUserId/${id}`).then((response) => {
+      setBusinesses(response.data);
+   })
+  });
+
   const onCancel = () => {
-    history.push(`/user/accounts/${id}`);
+    history.push("/user/tasks");
   };
 
   const onSubmit = () => {
-    axios.post("http://localhost:3001/business", {
-        business: business, igusername: igusername,
-        igpassword: igpassword, fbusername: fbusername,
-        fbpassword: fbpassword, emailusername: emailusername,
-        emailpassword: emailpassword, UserId: id
+    axios.post("http://localhost:3001/task", {
+        business: business, account: account, 
+        action: action, message: message, date: date,
+        time: time, UserId: id, status: "pending", BusinessId: busid
     }).then((response) => {
      console.log("business created");
-    history.push(`/user/accounts/${id}`);
+    history.push("/user/tasks");
 
 });
 };
@@ -42,7 +51,7 @@ export default function CardBusinessInfo() {
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
         <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">My account</h6>
+            <h6 className="text-blueGray-700 text-xl font-bold">Create a Task</h6>
             <button
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
@@ -65,14 +74,38 @@ export default function CardBusinessInfo() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Business name
+                    Select Business
                   </label>
-                  <input
-                    type="business"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange = {(e)=>  {
-                        setBusiness(e.target.value);
-                      }} />
+                  <select  onChange = {(e)=>  {
+                      setBusiness(e.target.value);
+
+                    }}>
+                     <option value=""></option>
+              {businesses.map((valuee, key) => {
+                  return( 
+                    <option value={valuee.business}
+                     >{valuee.business}</option>
+                  );
+              })} 
+              </select>
+              <label
+                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Confirm Business
+                  </label>
+              <select  onChange = {(e)=>  {
+                      setBusId(e.target.value);
+
+                    }}>
+                     <option value=""></option>
+              {businesses.map((valuee, key) => {
+                  return( 
+                    <option value={valuee.id}
+                    >{valuee.business}</option>
+                  );
+              })} 
+              </select>
                 </div>
               </div>
             </div>
@@ -80,7 +113,7 @@ export default function CardBusinessInfo() {
 
 
             <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-              Instagram
+              Social Media
             </h6>
             <div className="flex flex-wrap">
           
@@ -90,34 +123,56 @@ export default function CardBusinessInfo() {
                     className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
                     htmlFor="grid-password"
                   >
-                    Username
+                    Please choose
                   </label>
-                  <input
-                    type="username"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    onChange = {(e)=>  {
-                      setIgU(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
+                  <div className="form-check">
+    <label>
+      <input
+        type="radio"
+        name="react-tips"
+        value="Instagram"
+        onChange = {(e)=>  {
+            setAccount(e.target.value);
+          }}
+        className="form-check-input"
+      />
+      Instagram
+    </label>
+  </div>
 
-              <div className="w-full lg:w-4/12 px-4">
-                <div className="relative w-full mb-3">
-                  <label
-                    className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                    htmlFor="grid-password"
-                  >
-                    Password
-                  </label>
-                  <input
-                    type="text"
-                    className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
-                    onChange = {(e)=>  {
-                      setIgP(e.target.value);
-                    }}
-                  />
+  <div className="form-check">
+    <label>
+      <input
+        type="radio"
+        name="react-tips"
+        value="Facebook"
+        onChange = {(e)=>  {
+            setAccount(e.target.value);
+          }}
+        className="form-check-input"
+      />
+      Facebook
+    </label>
+  </div>
+
+  <div className="form-check">
+    <label>
+      <input
+        type="radio"
+        name="react-tips"
+        value="Email"
+        onChange = {(e)=>  {
+            setAccount(e.target.value);
+          }}     
+        className="form-check-input"
+      />
+      Email
+    </label>
+  </div>
+
+  
+
+       
                 </div>
               </div>
 
@@ -125,7 +180,7 @@ export default function CardBusinessInfo() {
 
 
 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-  Facebook
+  Action
 </h6>
 <div className="flex flex-wrap">
 
@@ -135,42 +190,38 @@ export default function CardBusinessInfo() {
         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
         htmlFor="grid-password"
       >
-        Username
+        Select
       </label>
-      <input
-        type="username"
-        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-        onChange = {(e)=>  {
-          setFbU(e.target.value);
-        }}
-      />
-    </div>
-  </div>
-
-  <div className="w-full lg:w-4/12 px-4">
-    <div className="relative w-full mb-3">
-      <label
+      <select onChange = {(e)=>  {
+            setAction(e.target.value);
+          }}   >
+            <option value=""></option>
+            <option value="message">message</option>
+            <option value="like">like</option>
+            <option value="post">post</option>
+            <option value="comment">comment</option>
+          </select>
+          <label
         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
         htmlFor="grid-password"
       >
-        Password
+        Message
       </label>
       <input
         type="text"
         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-        defaultValue="United States"
         onChange = {(e)=>  {
-          setFbP(e.target.value);
-        }}
+            setMessage(e.target.value);
+          }} 
       />
     </div>
+    
   </div>
-
 </div>
 
 
 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-  Email
+  Set Time
 </h6>
 <div className="flex flex-wrap">
 
@@ -180,14 +231,14 @@ export default function CardBusinessInfo() {
         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
         htmlFor="grid-password"
       >
-        Username
+        Date
       </label>
       <input
-        type="username"
+        type="text"
         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
         onChange = {(e)=>  {
-          setEmailU(e.target.value);
-        }}
+            setDate(e.target.value);
+          }} 
       />
     </div>
   </div>
@@ -198,15 +249,14 @@ export default function CardBusinessInfo() {
         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
         htmlFor="grid-password"
       >
-        Password
+        Time
       </label>
       <input
         type="text"
         className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-        defaultValue="United States"
         onChange = {(e)=>  {
-          setEmailP(e.target.value);
-        }}
+            setTime(e.target.value);
+          }} 
       />
     </div>
   </div>

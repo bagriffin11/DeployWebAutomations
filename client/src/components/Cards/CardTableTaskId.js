@@ -1,23 +1,22 @@
 import {React, useState, useContext, useEffect} from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import {useHistory, Link} from "react-router-dom";
-import {UserId} from "Global/Variables.js"
+import {useHistory, useParams} from "react-router-dom";
 
 // components
 
 import TableDropdown from "components/Dropdowns/TableDropdown.js";
 
-export default function CardTableTask({ color }) {
+export default function CardTableTaskId({ color }) {
   let history = useHistory();
-
-  const id = useContext(UserId);
+  let {id} = useParams();
+  
   const [tasks, setTasks] = useState([]);
 
 
 
   useEffect(() =>{
-    axios.get(`http://localhost:3001/task/gettask/${id}`).then((response) => {
+    axios.get(`http://localhost:3001/task/taskbusid/${id}`).then((response) => {
       setTasks(response.data);
    })
   },[]);
@@ -139,6 +138,8 @@ export default function CardTableTask({ color }) {
               <tr>
                 
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
+                
+              
                   <img
                     src={require("assets/img/bootstrap.jpg").default}
                     className="h-12 w-12 bg-white rounded-full border"
@@ -199,10 +200,10 @@ export default function CardTableTask({ color }) {
   );
 }
 
-CardTableTask.defaultProps = {
+CardTableTaskId.defaultProps = {
   color: "light",
 };
 
-CardTableTask.propTypes = {
+CardTableTaskId.propTypes = {
   color: PropTypes.oneOf(["light", "dark"]),
 };

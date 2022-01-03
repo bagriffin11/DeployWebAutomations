@@ -10,6 +10,7 @@ import HeaderStats from "components/Headers/HeaderStats.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 
 // views
+import CardTaskEditor from "components/Cards/CardTaskEditor.js";
 import CardUserInfo from "components/Cards/CardUserInfo.js";
 import CardBusinessInfo from "components/Cards/CardBusinessInfo.js";
 import Dashboard from "views/admin/Dashboard.js";
@@ -21,7 +22,7 @@ import Tasks from "views/admin/Tasks.js";
 import Profile from "views/admin/Profile.js";
 import {LoginContext, UserId, UserName} from "Global/Variables.js"
 import CardProfile from "components/Cards/CardProfile.js";
-
+import Business from "views/admin/Business.js"
 
 export default function Admin() {
 const [loggedIn, setLoggedIn] = useState("");
@@ -69,6 +70,8 @@ const [name, setName] = useState("");
             <Route path="/user/info" exact component={CardUserInfo} />
             <Route path="/user/accountinfo" exact component={CardBusinessInfo} />
             <Route path="/user/prof" exact component={CardProfile} />
+            <Route path="/user/task/editor" exact component={CardTaskEditor} />
+            <Route path="/user/business/:id" exact component={() => <Business authorized = {loggedIn} /> } />
 
 
             <Redirect from="/admin/dashboard" to="/" />
