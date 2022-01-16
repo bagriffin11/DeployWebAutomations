@@ -1,7 +1,10 @@
 import {React, useState, useContext, Component, useEffect} from "react";
 import axios from "axios";
 import {useHistory, Link} from "react-router-dom";
-import {UserId} from "Global/Variables.js"
+import {UserId} from "Global/Variables.js";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 // components
 
@@ -12,23 +15,28 @@ export default function CardTaskEditor() {
   
   const id = useContext(UserId);
 
+
+
   const [businesses, setBusinesses] = useState([]);
   const [business, setBusiness] = useState("");
   const [account,setAccount] = useState("");
   const [action, setAction] = useState("");
   const [message, setMessage] = useState("");
-  const [date,setDate] = useState("");
-  const [time, setTime] = useState("");
+  const [date, setDate] = useState(null);
   const [busid, setBusId] = useState("");
 
-
+  const dateSet = (date) => {
+      setDate(date);
+  }
 
 
   useEffect(() =>{
     axios.get(`http://localhost:3001/business/getUserId/${id}`).then((response) => {
       setBusinesses(response.data);
    })
-  });
+  },[]);
+
+  
 
   const onCancel = () => {
     history.push("/user/tasks");
@@ -38,7 +46,7 @@ export default function CardTaskEditor() {
     axios.post("http://localhost:3001/task", {
         business: business, account: account, 
         action: action, message: message, date: date,
-        time: time, UserId: id, status: "pending", BusinessId: busid
+         UserId: id, status: "pending", BusinessId: busid
     }).then((response) => {
      console.log("business created");
     history.push("/user/tasks");
@@ -214,6 +222,7 @@ export default function CardTaskEditor() {
             setMessage(e.target.value);
           }} 
       />
+    
     </div>
     
   </div>
@@ -221,7 +230,7 @@ export default function CardTaskEditor() {
 
 
 <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-  Set Time
+  Set Duration
 </h6>
 <div className="flex flex-wrap">
 
@@ -231,36 +240,20 @@ export default function CardTaskEditor() {
         className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
         htmlFor="grid-password"
       >
-        Date
+        Date and Time
       </label>
-      <input
-        type="text"
-        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-        onChange = {(e)=>  {
-            setDate(e.target.value);
-          }} 
-      />
+      <DatePicker
+      showTimeSelect
+  selected={date}
+  onChange={dateSet}
+  minDate={new Date()}
+  showDisabledMonthNavigation
+  dateFormat="MMMM d, yyyy h:mm aa"
+/>
     </div>
   </div>
 
-  <div className="w-full lg:w-4/12 px-4">
-    <div className="relative w-full mb-3">
-      <label
-        className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-        htmlFor="grid-password"
-      >
-        Time
-      </label>
-      <input
-        type="text"
-        className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-        onChange = {(e)=>  {
-            setTime(e.target.value);
-          }} 
-      />
-    </div>
-  </div>
-
+  
 </div>
 
           

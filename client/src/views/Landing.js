@@ -16,7 +16,7 @@ export default function Landing() {
             className="absolute top-0 w-full h-full bg-center bg-cover"
             style={{
               backgroundImage:
-                "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80')",
+                "url('https://media.istockphoto.com/photos/location-icons-of-gps-navigation-global-5g-high-speed-internet-and-picture-id1286943539?b=1&k=20&m=1286943539&s=170667a&w=0&h=20uu_jIbhAL4KM3UQshMXUcT7-UnFedVv9BAvOTg5_g=')",
             }}
           >
             <span
@@ -183,7 +183,7 @@ export default function Landing() {
                 <img
                   alt="..."
                   className="max-w-full rounded-lg shadow-lg"
-                  src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  src="https://wallpaperaccess.com/full/3051399.jpg"
                 />
               </div>
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">

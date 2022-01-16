@@ -4,6 +4,8 @@ import {useHistory} from "react-router-dom";
 import {useParams} from "react-router-dom";
 import { Link} from "react-router-dom";
 import {LoginContext, UserId} from "Global/Variables.js"
+import GoogleLogin from 'react-google-login';
+
 
 
 export default function Login() {
@@ -33,6 +35,15 @@ export default function Login() {
       });
 };
 
+const handleFailure = (result) => {
+ alert("Google login is currently unavailable.");
+}
+
+const handleLogin = (googleData) => {
+  console.log(googleData);
+ }
+ 
+
 
   return (
     <>
@@ -47,28 +58,14 @@ export default function Login() {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/github.svg").default}
-                    />
-                    Github
-                  </button>
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/google.svg").default}
-                    />
-                    Google
-                  </button>
+                
+                  <GoogleLogin
+                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                    buttonText="Login with Google"
+                    onSuccess={handleLogin}
+                    onFailure={handleFailure}
+                    cookiePolicy={'single_host_origin'}
+                  />
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
@@ -149,8 +146,9 @@ export default function Login() {
                   <small>Create new account</small>
                 </Link>
               </div>
-              {loggedIn ? <h1 className="text-blueGray-200">you're  logged in</h1> : <h1 className="text-blueGray-200">youre not logged in</h1>}
+             {/* {loggedIn ? <h1 className="text-blueGray-200">you're  logged in</h1> : <h1 className="text-blueGray-200">youre not logged in</h1>}
               <h1 className="text-blueGray-200">your id = {id}</h1>
+                    */}
             </div>
           </div>
         </div>

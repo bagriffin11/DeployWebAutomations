@@ -14,6 +14,8 @@ import Auth from "layouts/Auth.js";
 // views without layouts
 
 import Landing from "views/Landing.js";
+import Aboutus from "views/Aboutus.js";
+import Contactus from "views/Contactus.js";
 
 // Global variables 
 
@@ -23,7 +25,8 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>    
       <Route path="/" exact component={Landing} />
-
+      <Route path="/about" exact component={Aboutus} />
+      <Route path="/contact" exact component={Contactus} />
       {/* add routes with layouts */}
       <Route path="/user" component= {Admin} />
       <Route path="/auth" component={Auth} />

@@ -21,9 +21,13 @@ useEffect(() =>{
  })
 });
 
+
 const onSubmit = (id) => {
   history.push(`/user/business/${id}`);
 }
+
+
+
 //import user's accounts
 
 
@@ -38,15 +42,16 @@ const onSubmit = (id) => {
             
             <div className="flex flex-wrap">
             {businesses.map((value, key) => {
+             
                   return(
               <div hoverable onClick={() => {onSubmit(value.id)}} className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
                   statSubtitle={value.business}
-                  statTitle="357 tasks"
+                  statTitle="number of tasks"
                   statArrow="up"
                   statPercent="3.48"
                   statPercentColor="text-emerald-500"
-                  statDescripiron="Since last month"
+                  statDescripiron={value.createdAt}
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"
                 />

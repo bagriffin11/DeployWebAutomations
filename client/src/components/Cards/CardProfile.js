@@ -9,6 +9,8 @@ import {useHistory} from "react-router-dom";
 
 export default function CardProfile() {
   let history = useHistory();
+  axios.defaults.withCredentials = true;
+
 
   const id = useContext(UserId);
   const [user, setUser] = useState({});
@@ -17,6 +19,13 @@ export default function CardProfile() {
   const onSubmit = () => {
     history.push("/user/settings");
   }
+
+  const logOut = () => {
+    axios.post("http://localhost:3001/user/logout").then((response) => {
+    history.push("/");
+    console.log("Logged out")
+  });
+}
 
   
 
@@ -31,7 +40,10 @@ export default function CardProfile() {
        setInfo(response.data[0]);
        console.log(response.data);
     });
+
+    
   },[]);
+
 
   
 
@@ -39,8 +51,11 @@ export default function CardProfile() {
     <>
       <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
         <div className="px-6">
-          <div className="flex flex-wrap justify-center">
-            <div className="w-full px-4 flex justify-center">
+   
+          <div className="flex flex-wrap justify-center">  
+           
+            <div className="w-full px-4 flex justify-center"> 
+           
               <div className="relative">
                 { /*<img
                   alt="..."
@@ -49,7 +64,14 @@ export default function CardProfile() {
                 /> */}
               </div>
             </div>
-            <div className="w-full px-4 text-center mt-20">
+            <div className="w-full px-4 text-center mt-20"> 
+             <button
+              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick = {logOut}
+            >
+              Logout
+            </button>
               <div className="flex justify-center py-4 lg:pt-4 pt-8">
                 <div className="mr-4 p-3 text-center">
                   <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">

@@ -8,6 +8,11 @@ router.get("/getUserId/:id", async (req, res) =>{
    const business = await Business.findAll({where: {UserId: id} });
    res.json(business);
 });
+router.get("/getbyid/:busid", async (req, res) =>{
+    const id = req.params.busid;
+    const business = await Business.findOne({where: {id: id} });
+    res.json(business);
+ });
 //instead of send you can put json and it returns a string
 router.delete("/delete/:id", async (req,res) => {
     const bus = req.params.id

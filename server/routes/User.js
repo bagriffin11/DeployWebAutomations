@@ -20,13 +20,17 @@ router.get("/byId/:id", async (req,res) => {
 router.get("/getid",validateToken, async (req, res) => {
     const id = req.user.id;
     res.json(id);
-})
+});
 
 router.get("/getname",validateToken, async (req, res) => {
     const name = req.user.name;
     res.json(name);
-})
+});
 
+router.post("/logout", async (req,res) => {
+    res.cookie("access-token", '', {maxAge: 1});
+    res.json("logged out");
+});
 //this is great for setting the global param for id. grabs the data from validateToken
 
 router.put("/update/:id", async (req, res) =>{
@@ -84,7 +88,7 @@ router.post("/login", async (req,res) => {
         else {
 
             const accessToken = createTokens(user)
-            
+    
             res.cookie("access-token", accessToken,{
                 maxAge: 60*60*24*30*1000,
                 httpOnly: true,
@@ -93,6 +97,8 @@ router.post("/login", async (req,res) => {
         }
     });
 });
+
+
 
 //put random string generator for secret and import it from a file
 

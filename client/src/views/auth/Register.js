@@ -6,6 +6,7 @@ import { Link} from "react-router-dom";
 import Popupregister from "components/Popup/Popupig.js";
 import Enterpage from './Enterpage.js'
 import {UserEmail} from 'Global/Variables.js'
+import GoogleLogin from 'react-google-login';
 
 
 
@@ -21,7 +22,6 @@ export default function Register() {
   
 
     const onSubmit = (data) => {
-
       axios.post("http://localhost:3001/user", {
         fullname: fullname,
         email:email, password: password
@@ -33,9 +33,16 @@ export default function Register() {
        //  sessionStorage.setItem("accessToken", response.data);
       setButtonPopup(true);
       }
-    });
-      
+    });    
   };
+
+  const handleFailure = (result) => {
+    alert("Google login is currently unavailable.");
+   }
+   
+   const handleLogin = (googleData) => {
+     console.log(googleData);
+    }
 
 
 
@@ -44,7 +51,7 @@ export default function Register() {
     <UserEmail.Provider value={email}>
  <div className="container mx-auto px-4 h-full">
         <div className="flex content-center items-center justify-center h-full">
-          <div className="w-full lg:w-6/12 px-4">
+          <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
               <div className="rounded-t mb-0 px-6 py-6">
                 <div className="text-center mb-3">
@@ -53,28 +60,14 @@ export default function Register() {
                   </h6>
                 </div>
                 <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/github.svg").default}
-                    />
-                    Github
-                  </button>
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/google.svg").default}
-                    />
-                    Google
-                  </button>
+                <GoogleLogin
+                    clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
+                    buttonText="Login with Google"
+                    onSuccess={handleLogin}
+                    onFailure={handleFailure}
+                    cookiePolicy={'single_host_origin'}
+                  />
+            
                 </div>
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>

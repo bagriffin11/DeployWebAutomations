@@ -12,6 +12,7 @@ export default function CardTableHistory({ color }) {
 
   const id = useContext(UserId);
   const [tasks, setTasks] = useState([]);
+  const [total, setTotal] = useState([]);
 
 
 
@@ -21,7 +22,25 @@ export default function CardTableHistory({ color }) {
    })
   },[]);
 
-  
+  useEffect(() =>{
+    axios.get(`http://localhost:3001/task/taskhistorytotal/${id}`).then((response) => {
+      setTotal(response.data);
+   })
+  },[]);
+
+  const icon = (acc) => {
+    var b = "";
+    if (acc == "Facebook") b = "Facebook.png";
+    else if (acc == "Instagram") b = "Instagram.png";
+    else if (acc == "Email") b = "Gmail.png"
+      return(
+        <img
+        src={require(`assets/img/${b}`).default}
+        className="h-12 w-12 bg-white rounded-full border"
+        alt="..."
+      ></img>
+      );
+  }
 
   return (
     <>
@@ -40,7 +59,7 @@ export default function CardTableHistory({ color }) {
                   (color === "light" ? "text-blueGray-700" : "text-white")
                 }
               >
-                History
+                History ({total} total)
               </h3>
             </div>
           </div>
@@ -135,14 +154,8 @@ export default function CardTableHistory({ color }) {
               <tr>
                 
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <img
-                    src={require("assets/img/bootstrap.jpg").default}
-                    className="h-12 w-12 bg-white rounded-full border"
-                    alt="..."
-                  ></img>{" "}
+               {icon(value.account)}
 
-                
-                   
                   <span
                     className={
                       "ml-3 font-bold " +
@@ -170,9 +183,7 @@ export default function CardTableHistory({ color }) {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {value.action}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {value.time}
-                </td>
+          
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {value.date}
                 </td>

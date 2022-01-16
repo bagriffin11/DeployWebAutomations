@@ -13,6 +13,7 @@ export default function CardTableTask({ color }) {
 
   const id = useContext(UserId);
   const [tasks, setTasks] = useState([]);
+  const [total, setTotal] = useState([]);
 
 
 
@@ -22,9 +23,35 @@ export default function CardTableTask({ color }) {
    })
   },[]);
 
+  useEffect(() =>{
+    axios.get(`http://localhost:3001/task/taskqueuetotal/${id}`).then((response) => {
+      setTotal(response.data);
+   })
+  },[]);
+
   const onSubmit = () => {
     history.push("/user/task/editor");
   };
+
+  const deleteTask = (taskid) => {
+    axios.delete(`http://localhost:3001/task/delete/${taskid}`).then(()=> {
+      history.push("/user/tasks")
+    }); 
+  };
+
+  const icon = (acc) => {
+    var b = "";
+    if (acc == "Facebook") b = "Facebook.png";
+    else if (acc == "Instagram") b = "Instagram.png";
+    else if (acc == "Email") b = "Gmail.png"
+      return(
+        <img
+        src={require(`assets/img/${b}`).default}
+        className="h-12 w-12 bg-white rounded-full border"
+        alt="..."
+      ></img>
+      );
+  }
 
 
   return (
@@ -37,7 +64,7 @@ export default function CardTableTask({ color }) {
       >
          <div className="rounded-t bg-white mb-0 px-6 py-6">
           <div className="text-center flex justify-between">
-            <h6 className="text-blueGray-700 text-xl font-bold">Queue</h6>
+            <h6 className="text-blueGray-700 text-xl font-bold">Queue ({total} Total)</h6>
             <button
               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
@@ -139,11 +166,8 @@ export default function CardTableTask({ color }) {
               <tr>
                 
                 <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center">
-                  <img
-                    src={require("assets/img/bootstrap.jpg").default}
-                    className="h-12 w-12 bg-white rounded-full border"
-                    alt="..."
-                  ></img>{" "}
+                {icon(value.account)}
+
 
                 
                    
@@ -174,14 +198,14 @@ export default function CardTableTask({ color }) {
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {value.action}
                 </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                  {value.time}
-                </td>
+             
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                   {value.date}
                 </td>
                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right">
-                  <TableDropdown />
+                <button onClick = {() => {deleteTask(value.id)}}>
+                    Delete
+                  </button>
                 </td>
               </tr>
                );

@@ -1,6 +1,15 @@
 import React from "react";
+import {useHistory} from "react-router-dom";
+
 
 export default function Footer() {
+  let history = useHistory();
+
+  const aboutPage = () => {
+    history.push("/about");
+
+   }
+
   return (
     <>
       <footer className="relative bg-blueGray-200 pt-8 pb-6">
@@ -65,37 +74,23 @@ export default function Footer() {
                   </span>
                   <ul className="list-unstyled">
                     <li>
-                      <a
+                      <button
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/presentation?ref=nr-footer"
+                        onClick = {aboutPage}
                       >
                         About Us
-                      </a>
+                      </button>
                     </li>
+                   
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://blog.creative-tim.com?ref=nr-footer"
-                      >
-                        Blog
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.github.com/creativetimofficial?ref=nr-footer"
+                        href="https://github.com/bagriffin11?tab=overview&from=2021-12-01&to=2021-12-31"
                       >
                         Github
                       </a>
                     </li>
-                    <li>
-                      <a
-                        className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://www.creative-tim.com/bootstrap-themes/free?ref=nr-footer"
-                      >
-                        Free Products
-                      </a>
-                    </li>
+                   
                   </ul>
                 </div>
                 <div className="w-full lg:w-4/12 px-4">
@@ -106,7 +101,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://github.com/creativetimofficial/notus-react/blob/main/LICENSE.md?ref=nr-footer"
+                       // href="https://github.com/creativetimofficial/notus-react/blob/main/LICENSE.md?ref=nr-footer"
                       >
                         MIT License
                       </a>
@@ -114,7 +109,7 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/terms?ref=nr-footer"
+                      //  href="https://creative-tim.com/terms?ref=nr-footer"
                       >
                         Terms & Conditions
                       </a>
@@ -122,18 +117,21 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/privacy?ref=nr-footer"
+                       // href="https://creative-tim.com/privacy?ref=nr-footer"
                       >
                         Privacy Policy
                       </a>
                     </li>
                     <li>
-                      <a
+                      <button
                         className="text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="https://creative-tim.com/contact-us?ref=nr-footer"
-                      >
+                        onClick = {()=>{
+                          history.push("/contact");
+
+                        }}
+                        >
                         Contact Us
-                      </a>
+                      </button>
                     </li>
                   </ul>
                 </div>
@@ -144,12 +142,12 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Notus React by{" "}
+                Copyright © {new Date().getFullYear()} Deploy Web Automations by{" "}
                 <a
-                  href="https://www.creative-tim.com?ref=nr-footer"
+                  href="https://www.linkedin.com/in/barret-griffin-3988ba221/"
                   className="text-blueGray-500 hover:text-blueGray-800"
                 >
-                  Creative Tim
+                  Barret Griffin
                 </a>
                 .
               </div>
