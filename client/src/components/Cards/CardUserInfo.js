@@ -27,7 +27,7 @@ export default function CardUserInfo() {
         UserId: userid
 
     }).then((response) => {
-      history.push("/user/dashboard");
+      history.push(`/user/profile/${userid}`);
     });
 };
 
@@ -62,7 +62,6 @@ export default function CardUserInfo() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="New York" 
                     onChange = {(e)=>  {
                       setStatus(e.target.value);
                     }}
@@ -80,7 +79,6 @@ export default function CardUserInfo() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
                     onChange = {(e)=>  {
                       setDegree(e.target.value);
                     }}
@@ -98,7 +96,6 @@ export default function CardUserInfo() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Postal Code"
                     onChange = {(e)=>  {
                       setCollege(e.target.value);
                     }}
@@ -125,7 +122,6 @@ export default function CardUserInfo() {
                   <input
                     type="email"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="New York"
                     onChange = {(e)=>  {
                       setCity(e.target.value);
                     }}
@@ -143,7 +139,6 @@ export default function CardUserInfo() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="United States"
                     onChange = {(e)=>  {
                       setState(e.target.value);
                     }}
@@ -161,7 +156,6 @@ export default function CardUserInfo() {
                   <input
                     type="text"
                     className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                    defaultValue="Postal Code"
                     onChange = {(e)=>  {
                       setCountry(e.target.value);
                     }}

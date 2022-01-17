@@ -20,6 +20,47 @@ export default function CardProfile() {
     history.push("/user/settings");
   }
 
+  const onInfo = (info) => {
+    if(info == null) {
+      return(
+        <div>
+          <button
+          className="bg-blue text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+          onClick={()=>{
+            history.push("/user/info")
+          }}
+          >
+            Add information
+          </button>
+        </div>
+      );
+    }
+    else {
+      return(
+        <div>
+             
+            <button 
+            className="bg-blue text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
+            onClick = {onSubmit}>
+              Edit Info
+            </button>
+            <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+              <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
+              {info.city}, {info.state} {info.country}
+            </div>
+            <div className="mb-2 text-blueGray-600 mt-10">
+              <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
+              {info.degree}
+            </div>
+            <div className="mb-2 text-blueGray-600">
+              <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
+              University of {info.college}
+            </div>
+        </div>
+      );
+    }
+  }
+
   const logOut = () => {
     axios.post("http://localhost:3001/user/logout").then((response) => {
     history.push("/");
@@ -95,28 +136,11 @@ export default function CardProfile() {
             </div>
           </div>
           <div className="text-center mt-12">
-            
-            <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
+          <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
               
               {user.fullname} 
             </h3>
-            <button 
-            className="bg-blue text-blueGray-700 active:bg-blueGray-50 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-            onClick = {onSubmit}>
-              Edit Info
-            </button>
-            <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-              <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>{" "}
-              {info.city}, {info.state} {info.country}
-            </div>
-            <div className="mb-2 text-blueGray-600 mt-10">
-              <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-              {info.degree}
-            </div>
-            <div className="mb-2 text-blueGray-600">
-              <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-              University of {info.college}
-            </div>
+            {onInfo(info)} 
           </div>
           <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
             <div className="flex flex-wrap justify-center">
