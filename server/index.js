@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const {validateToken} = require("./jwt/Jwt")
-
+require('dotenv').config()
 
 app.use(express.json()); //allows for json to be used in insomnia 
 app.use(cors({

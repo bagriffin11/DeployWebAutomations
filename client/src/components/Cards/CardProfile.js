@@ -98,16 +98,18 @@ export default function CardProfile() {
             <div className="w-full px-4 flex justify-center"> 
            
               <div className="relative">
-                { /*<img
+                <img
                   alt="..."
-                  src={require("assets/img/team-2-800x800.jpg").default}
+                  src={require("assets/img/userr.jpeg").default}
                   className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-                /> */}
+                /> 
               </div>
             </div>
+            <br>
+            </br>
             <div className="w-full px-4 text-center mt-20"> 
              <button
-              className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+               className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
               type="button"
               onClick = {logOut}
             >

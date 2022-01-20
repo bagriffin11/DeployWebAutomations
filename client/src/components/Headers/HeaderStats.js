@@ -13,6 +13,7 @@ export default function HeaderStats() {
 let history = useHistory();
 
 const [businesses, setBusinesses] = useState([]);
+const [tasks, setTasks] = useState([]);
 const id = useContext(UserId);
 
 useEffect(() =>{
@@ -22,9 +23,14 @@ useEffect(() =>{
 });
 
 
+
+
 const onSubmit = (id) => {
   history.push(`/user/business/${id}`);
 }
+
+
+
 
 
 
@@ -46,11 +52,7 @@ const onSubmit = (id) => {
                   return(
               <div hoverable onClick={() => {onSubmit(value.id)}} className="w-full lg:w-6/12 xl:w-3/12 px-4">
                 <CardStats
-                  statSubtitle={value.business}
-                  statTitle="number of tasks"
-                  statArrow="up"
-                  statPercent="3.48"
-                  statPercentColor="text-emerald-500"
+                  statTitle={value.business}
                   statDescripiron={value.createdAt}
                   statIconName="far fa-chart-bar"
                   statIconColor="bg-red-500"

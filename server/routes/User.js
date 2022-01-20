@@ -39,7 +39,6 @@ router.put("/update/:id", async (req, res) =>{
     await User.update({fullname: fullname, email: email},
         {where: {id: id}});
     
-    
 })
 
 

@@ -19,7 +19,10 @@ export default function Dashboard({authorized}) {
 
   return (
     <>
-    
+    <div>
+      <h1>More data needs to be collected.</h1>
+    </div>
+    {/*
       <div className="flex flex-wrap">
         <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
           <CardLineChart />
@@ -36,6 +39,8 @@ export default function Dashboard({authorized}) {
           <CardSocialTraffic />
         </div>
       </div>
+*/}
+
     </>
   );
 }

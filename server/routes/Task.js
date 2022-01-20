@@ -27,6 +27,13 @@ router.get("/taskbusid/:id", async (req, res) =>{
     res.json(task.length);
  });
 
+
+ router.get("/taskhistorymonth/:id", async (req, res) =>{
+   const id = req.params.id;
+   const task = await Task.findAll({where: {UserId: id, status: "complete"} });
+   res.json(task.length);
+});
+
 //instead of send you can put json and it returns a string
 router.delete("/delete/:id", async (req,res) => {
     const business = req.params.id

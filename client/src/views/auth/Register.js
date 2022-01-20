@@ -14,15 +14,19 @@ export default function Register() {
 
   let history = useHistory();
   axios.defaults.withCredentials = true;
-
+  
   const [buttonPopup, setButtonPopup] = useState(false);
   const [fullname, fullName] = useState("");
   const [email, Email] = useState("");
   const [password, Password] = useState("");
-  
+
+  const [checked, setChecked] = useState(false);
+  const toggleChecked = () => setChecked(value => !value);
+
 
     const onSubmit = (data) => {
-      axios.post("http://localhost:3001/user", {
+    if (checked == true) {
+        axios.post("http://localhost:3001/user", {
         fullname: fullname,
         email:email, password: password
     }).then((response) => {
@@ -33,7 +37,11 @@ export default function Register() {
        //  sessionStorage.setItem("accessToken", response.data);
       setButtonPopup(true);
       }
-    });    
+    }); 
+    }
+    else {
+      alert("Accept the terms and conditions to continue.")
+    } 
   };
 
   const handleFailure = (result) => {
@@ -130,6 +138,8 @@ export default function Register() {
                         id="customCheckLogin"
                         type="checkbox"
                         className="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                        checked={checked}
+                        onChange={toggleChecked}
                       />
                       <span className="ml-2 text-sm font-semibold text-blueGray-600">
                         I agree with the{" "}
@@ -162,6 +172,7 @@ export default function Register() {
                 <Link to="/auth/login" className="text-blueGray-200">
                   <small>Login</small>
                 </Link>
+                
               </div>
             </div>
           </div>

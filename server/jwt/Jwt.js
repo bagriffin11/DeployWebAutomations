@@ -1,9 +1,11 @@
 const {sign, verify} = require("jsonwebtoken")
+require('dotenv').config()
+
 
 const createTokens = (user) => {
     const accessToken = sign(
         { email: user.email, id: user.id, name: user.fullname},
-         "jwtsecret");
+         `${process.env.API_KEY}`);
 
    // const id = accessToken.id; this is how you get the id
          return accessToken;
@@ -18,7 +20,7 @@ const validateToken = (req, res, next) => {
 
     try{
          
-         const validToken = verify(accessToken, "jwtsecret")
+         const validToken = verify(accessToken, `${process.env.API_KEY}`)
         if (validToken){
             req.authenticated = true;
             req.user = validToken;

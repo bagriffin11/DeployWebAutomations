@@ -487,6 +487,11 @@
   dependencies:
     "is-obj" "^2.0.0"
 
+"dotenv@^14.2.0":
+  "integrity" "sha512-05POuPJyPpO6jqzTNweQFfAyMSD4qa4lvsMOWyTRTdpHKy6nnnN+IYWaXF+lHivhBH/ufDKlR4IWCAN3oPnHuw=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-14.2.0.tgz"
+  "version" "14.2.0"
+
 "dottie@^2.0.0":
   "integrity" "sha512-fmrwR04lsniq/uSr8yikThDTrM7epXHBAAjH9TbeH3rEA8tdCO7mRzB9hdmdGyJCxF8KERo9CITcm3kGuoyMhg=="
   "resolved" "https://registry.npmjs.org/dottie/-/dottie-2.0.2.tgz"

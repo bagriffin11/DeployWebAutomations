@@ -43,7 +43,7 @@ const [id, setId] = useState();
           {/* Brand */}
           <Link
             className="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-            to="/landing"
+            to="/"
           >
             Deploy Web Automations
           </Link>
@@ -100,7 +100,7 @@ const [id, setId] = useState();
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin Layout Pages
+              User Layout Pages
             </h6>
             {/* Navigation */}
 
@@ -143,7 +143,7 @@ const [id, setId] = useState();
                 >
                   <i
                     className={
-                      "fas fa-map-marked mr-2 text-sm " +
+                      "fas fa-user mr-2 text-sm " +
                       (window.location.href.indexOf("/user/profile/:id") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
@@ -164,7 +164,7 @@ const [id, setId] = useState();
                     to = "/user/tasks"              >
                   <i
                     className={
-                      "fas fa-map-marked mr-2 text-sm " +
+                      "fas fa-list mr-2 text-sm " +
                       (window.location.href.indexOf("/user/tasks") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
@@ -202,20 +202,13 @@ const [id, setId] = useState();
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Auth Layout Pages
+              login/register
             </h6>
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-            <li className="items-center">
-                <Link
-                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/auth/iglogin"
-                >
-                  <i className="fas fa-fingerprint text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Instagram Login
-                </Link>
-              </li>
+         
+
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
@@ -241,7 +234,7 @@ const [id, setId] = useState();
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              No Layout Pages
+              information
             </h6>
             {/* Navigation */}
 
@@ -249,22 +242,43 @@ const [id, setId] = useState();
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/landing"
+                  to="/about"
                 >
                   <i className="fas fa-newspaper text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Landing Page
+                  about us
                 </Link>
               </li>
 
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-                  to="/profile"
+                  to="/contact"
                 >
-                  <i className="fas fa-user-circle text-blueGray-400 mr-2 text-sm"></i>{" "}
-                  Profile Page
+                  <i className="fas fa-phone text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  contact us
                 </Link>
               </li>
+
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  to="/"
+                >
+                  <i className="fas fa-file text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  terms & conditions
+                </Link>
+              </li>
+
+              <li className="items-center">
+                <Link
+                  className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+                  to="/"
+                >
+                  <i className="fas fa-wrench text-blueGray-400 mr-2 text-sm"></i>{" "}
+                  settings
+                </Link>
+              </li>
+
             </ul>
 
             

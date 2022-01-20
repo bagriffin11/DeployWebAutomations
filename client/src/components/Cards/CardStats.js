@@ -69,12 +69,12 @@ export default function CardStats({
 }
 
 CardStats.defaultProps = {
-  statSubtitle: "Create a Business",
-  statTitle: "# Tasks",
-  statArrow: "up",
-  statPercent: "0",
-  statPercentColor: "text-emerald-500",
-  statDescripiron: "Since Today",
+  statSubtitle: "",
+  statTitle: "",
+  statArrow: "",
+  statPercent: "",
+  statPercentColor: "",
+  statDescripiron: "",
   statIconName: "far fa-chart-bar",
   statIconColor: "bg-red-500",
 };

@@ -11,3 +11,4 @@ npx sequelize-cli  //gives the commands choose init to initiate sequelie
 npm install bcrypt //encript password
 npm install jsonwebtoken //creates a token for the user
 npm install cookie-parser // store token in cookie-parser
+npm install dotenv // store api key in .env folder
