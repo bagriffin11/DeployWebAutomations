@@ -7,7 +7,7 @@ require('dotenv').config()
 
 app.use(express.json()); //allows for json to be used in insomnia 
 app.use(cors({
-    origin: ["https://www.deploywebautomations.com/"],
+    origin: ["https://www.deploywebautomations.com"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true
 }));
