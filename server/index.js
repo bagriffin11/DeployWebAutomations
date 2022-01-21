@@ -7,7 +7,6 @@ require('dotenv').config()
 
 app.use(express.json()); //allows for json to be used in insomnia 
 app.use(cors({
-    origin: ["http://localhost:3000"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true
 }));
@@ -43,7 +42,7 @@ app.get("/auth", validateToken, (req, res) => {
 
 
 db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
+    app.listen(process.env.PORT || 3001, () => {
     console.log('server running on port 3001')
    });
 });
