@@ -12,7 +12,7 @@ app.use(cors({
     credentials: true
 }));
 app.use(cookieParser());
-
+app.set("trust proxy", 1);
 
 const db = require("./models");
 
