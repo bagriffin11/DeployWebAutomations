@@ -71,6 +71,8 @@ router.post("/register", async (req, res) => {
         httpOnly: true,
         path: "/",
         domain: "https://www.deploywebautomations.com",
+        secure: true,
+
     }); 
      res.json(accessToken);
     }
@@ -94,7 +96,9 @@ router.post("/login", async (req,res) => {
                 maxAge: 60*60*24*30*1000,
                 httpOnly: true,
                 path: "/",
-                domain: "https://www.deploywebautomations.com"
+                domain: "https://www.deploywebautomations.com",
+                secure: true,
+
             });
                 res.json(accessToken);
         }
