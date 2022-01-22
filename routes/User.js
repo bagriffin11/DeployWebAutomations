@@ -95,9 +95,7 @@ router.post("/login", async (req,res) => {
             res.cookie("access-token", accessToken,{
                 maxAge: 60*60*24*30*1000,
                 httpOnly: true,
-                path: "/",
-                domain: ".deploywebautomations.com",
-                secure: true,
+                path: "/"
 
             });
                 res.json(accessToken);
