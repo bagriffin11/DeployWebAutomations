@@ -94,7 +94,7 @@ router.post("/login", async (req,res) => {
                 maxAge: 60*60*24*30*1000,
                 httpOnly: true,
                 path: "/",
-                sameSite: 'none'
+                sameSite: 'strict'
 
             });
                 res.json(accessToken);
