@@ -71,7 +71,7 @@ router.post("/register", async (req, res) => {
         httpOnly: true,
         path: "/",
         sameSite: 'none',
-        secure: true,
+        
     }); 
      res.json(accessToken);
     }
@@ -96,7 +96,7 @@ router.post("/login", async (req,res) => {
                 httpOnly: true,
                 path: "/",
                 sameSite: 'none',
-                secure: true,
+                
             });
                 res.json(accessToken);
         }
