@@ -4,7 +4,6 @@ const {User} = require("../models");
 const bcrypt = require("bcryptjs");
 const {createTokens, validateToken} = require("../jwt/Jwt")
 
-router.set('trust proxy', 1);
 //can write post and get requests 
 router.get("/", async (req, res) =>{ 
     //res.json("helloworld");
