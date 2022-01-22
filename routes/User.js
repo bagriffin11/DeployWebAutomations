@@ -68,10 +68,9 @@ router.post("/register", async (req, res) => {
 
     res.cookie("access-token", accessToken, {
         maxAge: 60*60*24*30*1000,
-        httpOnly: true,
+        httpOnly: false,
         path: "/",
-        sameSite: 'none',
-        domain: "deploywebautomations.com"
+        sameSite: 'none'
     }); 
      res.json(accessToken);
     }
@@ -93,7 +92,7 @@ router.post("/login", async (req,res) => {
     
             res.cookie("access-token", accessToken, {
                 maxAge: 60*60*24*30*1000,
-                httpOnly: true,
+                httpOnly: false,
                 path: "/",
                 sameSite: 'none',
                 domain: "deploywebautomations.com"
